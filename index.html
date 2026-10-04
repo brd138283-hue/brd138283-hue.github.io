@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>החלפת משלמים | מי רמת גן</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF3F4; --surface:#FFFFFF; --surface-2:#F6F9FA; --ink:#13263A; --muted:#4E5E6C; --line:#CFD9DF;
+  --water:#0B6470; --water-ink:#FFFFFF; --water-soft:#DDEEF0;
+  --amber:#8F5A00; --amber-soft:#FBEFD6; --red:#AD2A1F; --red-soft:#FBE6E3; --green:#22683F; --green-soft:#E0F1E6;
+  --dial:#15212C; --dial-ink:#EAF2F5; --dial-edge:#2C3B48; --focus:#1B5FD1;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F171E; --surface:#16212A; --surface-2:#1B2833; --ink:#E6EEF2; --muted:#A5B4BF; --line:#2E3E4B;
+    --water:#4FB7C2; --water-ink:#08252A; --water-soft:#163A40;
+    --amber:#F0B955; --amber-soft:#3A2D12; --red:#F2887D; --red-soft:#3D1D1A; --green:#7BCF9C; --green-soft:#16362A;
+    --dial:#070C11; --dial-ink:#EAF2F5; --dial-edge:#2C3B48; --focus:#8AB4FF;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F171E; --surface:#16212A; --surface-2:#1B2833; --ink:#E6EEF2; --muted:#A5B4BF; --line:#2E3E4B;
+  --water:#4FB7C2; --water-ink:#08252A; --water-soft:#163A40;
+  --amber:#F0B955; --amber-soft:#3A2D12; --red:#F2887D; --red-soft:#3D1D1A; --green:#7BCF9C; --green-soft:#16362A;
+  --dial:#070C11; --dial-ink:#EAF2F5; --dial-edge:#2C3B48; --focus:#8AB4FF;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Hebrew","Assistant","Segoe UI",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji";font-size:17px;line-height:1.55;-webkit-text-size-adjust:100%}
+h1,h2,h3{line-height:1.25;margin:0 0 .5rem}
+h1{font-size:1.75rem;font-weight:700}
+h2{font-size:1.2rem;font-weight:600}
+h3{font-size:1.02rem;font-weight:600}
+p{margin:0 0 .75rem}
+a{color:var(--water)}
+small{font-size:.85rem}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:6px}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;inset-inline-start:1rem;top:-4rem;background:var(--water);color:var(--water-ink);padding:.6rem 1rem;border-radius:8px;z-index:10}
+.skip:focus{top:calc(env(safe-area-inset-top,0px) + .5rem)}
+
+/* header */
+.top{background:var(--surface);border-bottom:1px solid var(--line)}
+.top-in{max-width:1180px;margin:0 auto;padding:.8rem 1.25rem;display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;align-items:center;justify-content:space-between}
+.brand{display:flex;gap:.75rem;align-items:center}
+.brand-mark{width:38px;height:38px;flex:none}
+.brand b{display:block;font-size:1.05rem}
+.brand span{color:var(--muted);font-size:.9rem}
+.roles{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.roles-label{color:var(--muted);font-size:.9rem}
+.seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:3px}
+.seg button{font:inherit;font-size:.95rem;border:0;background:transparent;color:var(--ink);padding:.45rem .9rem;border-radius:9px;cursor:pointer;min-height:40px}
+.seg button[aria-pressed="true"]{background:var(--water);color:var(--water-ink);font-weight:600}
+.steps li.issue .num{background:var(--amber-soft);border-color:var(--amber);color:var(--amber)}
+.stepissue{display:block;color:var(--amber);font-size:.8rem;font-weight:500}
+.lrow{display:flex;align-items:center;gap:.45rem;margin-bottom:.25rem;position:relative}
+.lrow .flabel{margin:0}
+.hint{position:static;display:inline-flex}
+.hint-btn{position:relative;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--water);background:var(--surface);color:var(--water);font:inherit;font-weight:700;font-size:.9rem;line-height:1;cursor:help;display:inline-grid;place-items:center;padding:0}
+.hint-btn::after{content:"";position:absolute;inset:-8px}
+.hint-btn[aria-expanded="true"]{background:var(--water);color:var(--water-ink)}
+.hint-pop{display:none;position:absolute;top:100%;inset-inline-start:0;inset-inline-end:0;max-width:560px;z-index:30;padding-top:6px}
+.hint:hover .hint-pop,.hint:focus-within .hint-pop,.hint-pop.open{display:block}
+.hint.dismissed .hint-pop{display:none}
+.hint-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 32px rgba(10,30,50,.22);padding:.8rem .9rem}
+.hint-figs{display:flex;gap:.7rem;flex-wrap:wrap}
+.hint-figs figure{margin:0;flex:1 1 210px}
+.hint-figs svg{display:block;width:100%;height:auto;border-radius:10px}
+.hint-figs figcaption{font-size:.82rem;color:var(--muted);text-align:center;margin-top:.3rem}
+.hint-card ul{margin:.6rem 0 0;padding-inline-start:1.1rem;font-size:.86rem}
+.hint-card .fake{font-size:.78rem;color:var(--muted);margin:.4rem 0 0}
+.ico{display:inline-block;margin-inline-end:.4rem;font-size:1.05em;line-height:1;font-style:normal}
+.prep-list{list-style:none;padding:0;margin:1rem 0 .9rem;display:grid;gap:.45rem}
+.prep-list li{display:flex;gap:.2rem;align-items:baseline}
+.prep-list .ico{width:1.6rem;text-align:center;flex:none;line-height:inherit;font-size:1em}
+.danger-zone{margin-top:1.5rem;padding-top:1.1rem;border-top:1px solid var(--line)}
+.counted{background:var(--surface-2);border-radius:12px;padding:.7rem .9rem;margin:0 0 1rem;font-size:.93rem}
+.counted-h{font-weight:600;margin:0 0 .25rem}
+.counted ul{margin:0;padding-inline-start:1.2rem}
+.details{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.7rem;margin:.8rem 0 1rem}
+.dgroup{background:var(--surface-2);border-radius:12px;padding:.7rem .9rem}
+.dgroup h3{font-size:.93rem;margin:0 0 .35rem;color:var(--water)}
+.dgroup dl{display:grid;grid-template-columns:auto 1fr;gap:.2rem .75rem;margin:0;font-size:.9rem}
+.dgroup dt{color:var(--muted)}
+.dgroup dd{margin:0;overflow-wrap:anywhere}
+.ai .unk{color:var(--muted);font-style:italic}
+.flags li.bad{background:var(--red-soft);border:1px solid var(--red)}
+.nav-hint{font-size:.85rem;color:var(--muted);margin:0 0 .6rem}
+
+main{max-width:1180px;margin:0 auto;padding:1rem 1.25rem 3rem}
+
+/* shared */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1.5rem}
+.btn{font:inherit;font-weight:600;font-size:.97rem;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;min-height:44px;padding:.55rem 1.15rem;border-radius:10px;border:1.5px solid var(--water);background:var(--water);color:var(--water-ink);cursor:pointer;text-decoration:none}
+.btn.secondary{background:transparent;color:var(--water)}
+.btn.quiet{background:transparent;border-color:var(--line);color:var(--ink);font-weight:500}
+.btn.danger{background:transparent;border-color:var(--red);color:var(--red)}
+.btn.small{min-height:36px;padding:.3rem .75rem;font-size:.9rem}
+.btn[disabled],.btn[aria-disabled="true"]{opacity:.45;cursor:not-allowed}
+.linkbtn{font:inherit;background:none;border:0;color:var(--water);text-decoration:underline;cursor:pointer;padding:.25rem;min-height:32px}
+.row{display:flex;gap:.75rem;flex-wrap:wrap;align-items:center}
+.spacer{flex:1}
+.muted{color:var(--muted)}
+.badge{display:inline-block;padding:.12rem .6rem;border-radius:999px;font-size:.82rem;font-weight:600;white-space:nowrap;border:1px solid transparent}
+.b-submitted{background:var(--water-soft);color:var(--water)}
+.b-in_review{background:var(--surface-2);color:var(--ink);border-color:var(--line)}
+.b-needs_info{background:var(--amber-soft);color:var(--amber)}
+.b-resubmitted{background:var(--water-soft);color:var(--water);border-color:var(--water)}
+.b-approved{background:var(--green-soft);color:var(--green)}
+.notice{border-radius:12px;padding:.8rem 1rem;margin:0 0 1rem;border:1px solid var(--line);background:var(--surface-2)}
+.notice.warn{background:var(--amber-soft);border-color:transparent;color:var(--ink)}
+.notice.warn strong{color:var(--amber)}
+.notice.error{background:var(--red-soft);border-color:var(--red)}
+.notice.error h2{color:var(--red);font-size:1.05rem}
+.notice.error ul{margin:.25rem 0 0;padding-inline-start:1.2rem}
+.notice.ok{background:var(--green-soft);border-color:transparent}
+
+/* wizard */
+.wizard{display:grid;grid-template-columns:280px 1fr;gap:1.25rem;align-items:start}
+.side{display:grid;gap:1rem;position:sticky;top:calc(env(safe-area-inset-top,0px) + 1rem)}
+.side section{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1rem 1.1rem}
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{position:relative}
+.steps li:not(:last-child)::after{content:"";position:absolute;inset-inline-start:17px;top:38px;bottom:-4px;width:2px;background:var(--line)}
+.steps li.done:not(:last-child)::after{background:var(--water)}
+.steps button{font:inherit;display:flex;gap:.7rem;align-items:center;width:100%;text-align:start;background:none;border:0;color:var(--ink);padding:.35rem 0;min-height:44px;cursor:pointer;border-radius:8px}
+.steps button[disabled]{cursor:default;color:var(--muted)}
+.steps .num{width:36px;height:36px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;border:2px solid var(--line);background:var(--surface);position:relative;z-index:1;font-variant-numeric:tabular-nums}
+.steps li.done .num{background:var(--water);border-color:var(--water);color:var(--water-ink)}
+.steps li.current .num{border-color:var(--water);color:var(--water);box-shadow:0 0 0 3px var(--water-soft)}
+.steps li.current button{font-weight:600}
+.steps li.done.current .num{color:var(--water-ink)}
+.steps li.issue.current .num{color:var(--amber);border-color:var(--amber);box-shadow:0 0 0 3px var(--amber-soft)}
+.kit{list-style:none;margin:0;padding:0;display:grid;gap:.45rem;font-size:.92rem}
+.kit li{display:flex;gap:.5rem;align-items:flex-start}
+.kit .mark{width:18px;height:18px;border-radius:50%;flex:none;margin-top:.2rem;border:2px solid var(--line)}
+.kit li.have .mark{background:var(--green);border-color:var(--green)}
+.kit li.have{color:var(--muted)}
+.practice .btn{width:100%;justify-content:flex-start}
+.practice{display:grid;gap:.5rem}
+.stephead{display:flex;align-items:baseline;gap:.75rem;margin-bottom:.25rem}
+.stephead .of{color:var(--muted);font-size:.9rem;white-space:nowrap}
+.lead{color:var(--muted);max-width:62ch}
+.req{color:var(--red);font-weight:700;margin-inline-start:.2rem}
+fieldset{border:1px solid var(--line);border-radius:14px;padding:1rem 1.1rem .4rem;margin:0 0 1.1rem;min-width:0}
+legend{font-weight:600;padding:0 .4rem;font-size:1.02rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem}
+.grid3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:0 1rem}
+.field{margin-bottom:1rem;min-width:0}
+.field label,.flabel{display:block;font-weight:500;margin-bottom:.25rem}
+.opt{color:var(--muted);font-weight:400;font-size:.88rem}
+.help{font-size:.87rem;color:var(--muted);margin:0 0 .35rem;max-width:60ch}
+.err{color:var(--red);font-size:.88rem;font-weight:500;margin:.3rem 0 0}
+.err::before{content:"! ";font-weight:700}
+input[type=text],input[type=tel],input[type=email],input[type=date],input[type=number],select,textarea{font:inherit;width:100%;min-height:46px;padding:.5rem .75rem;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink)}
+input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--red);background:var(--red-soft)}
+input[dir="ltr"]{text-align:right}
+.check{display:flex;gap:.6rem;align-items:flex-start;margin:.35rem 0 .8rem;cursor:pointer}
+.check input{width:22px;height:22px;margin:.15rem 0 0;flex:none;accent-color:var(--water)}
+.choice{display:grid;gap:.5rem;margin-bottom:.9rem}
+.choice label{display:flex;gap:.7rem;align-items:flex-start;border:1.5px solid var(--line);border-radius:12px;padding:.75rem .9rem;cursor:pointer}
+.choice label:has(input:checked){border-color:var(--water);background:var(--water-soft)}
+.choice input{width:20px;height:20px;margin:.2rem 0 0;flex:none;accent-color:var(--water)}
+.choice .t{font-weight:600;display:block}
+.choice .d{font-size:.88rem;color:var(--muted)}
+.fixed{display:flex;gap:.6rem;align-items:center;border:1px dashed var(--line);border-radius:12px;padding:.6rem .9rem;margin-bottom:.9rem;font-size:.95rem}
+.filepick{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.sr-file{position:absolute;width:1px;height:1px;opacity:0}
+.sr-file:focus-visible + label{outline:3px solid var(--focus);outline-offset:2px}
+.filechip{display:flex;gap:.6rem;align-items:center;border:1.5px solid var(--green);background:var(--green-soft);border-radius:10px;padding:.45rem .75rem;flex-wrap:wrap}
+.filechip .nm{font-weight:500;overflow-wrap:anywhere}
+.filechip .ok{color:var(--green);font-weight:700}
+.navbar{display:flex;gap:.75rem;flex-wrap:wrap;align-items:center;border-top:1px solid var(--line);padding-top:1rem;margin-top:.5rem}
+.navbar .spacer{flex:1}
+
+/* the meter dial */
+.dialwrap{display:inline-flex;align-items:stretch;background:var(--dial);border-radius:14px;padding:6px;border:2px solid var(--dial-edge);max-width:100%}
+.dialwrap input.dial{font-family:inherit;font-variant-numeric:tabular-nums;font-size:2rem;font-weight:600;letter-spacing:.42em;background:repeating-linear-gradient(90deg,transparent 0 calc(1.1em - 1px),var(--dial-edge) calc(1.1em - 1px) 1.1em);color:var(--dial-ink);border:0;width:calc(8 * 1.1em + 1rem);max-width:100%;min-height:58px;padding:.2rem .5rem;border-radius:10px;text-align:left;caret-color:var(--dial-ink)}
+.dialwrap input.dial::placeholder{color:#56697a}
+.dialwrap .unit{color:var(--dial-ink);align-self:center;padding:0 .7rem;font-size:.95rem;opacity:.8}
+.dialwrap:has(input[aria-invalid="true"]){border-color:var(--red)}
+.ids{display:grid;gap:.4rem;margin:.25rem 0 1rem;font-size:.9rem}
+.ids div{display:flex;gap:.5rem}
+.ids b{min-width:9.5rem}
+
+/* review */
+.review{display:grid;gap:.9rem;margin-bottom:1.2rem}
+.review section{border:1px solid var(--line);border-radius:14px;padding:.9rem 1.1rem}
+.review .rh{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.review dl{display:grid;grid-template-columns:minmax(8rem,auto) 1fr;gap:.25rem 1rem;margin:.4rem 0 0;font-size:.95rem}
+.review dt{color:var(--muted)}
+.review dd{margin:0;overflow-wrap:anywhere}
+
+/* citizen status */
+.status-grid{display:grid;grid-template-columns:1fr 320px;gap:1.25rem;align-items:start}
+.refbox{display:grid;gap:.4rem;justify-items:start;margin:1rem 0 1.25rem}
+.refbox .ref{background:var(--dial);color:var(--dial-ink);border:2px solid var(--dial-edge);border-radius:12px;padding:.35rem 1rem;font-size:1.7rem;font-weight:600;letter-spacing:.12em;font-variant-numeric:tabular-nums;direction:ltr}
+.timeline{list-style:none;margin:0 0 1.25rem;padding:0;display:grid;gap:0}
+.timeline li{display:grid;grid-template-columns:28px 1fr;gap:.75rem;position:relative;padding-bottom:1rem}
+.timeline li:not(:last-child)::after{content:"";position:absolute;inset-inline-start:13px;top:26px;bottom:0;width:2px;background:var(--line)}
+.timeline .dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--line);background:var(--surface);display:grid;place-items:center;font-size:.8rem;font-weight:700;position:relative;z-index:1}
+.timeline li.done .dot{background:var(--water);border-color:var(--water);color:var(--water-ink)}
+.timeline li.now .dot{border-color:var(--amber);background:var(--amber-soft)}
+.timeline li.done:not(:last-child)::after{background:var(--water)}
+.timeline .when{color:var(--muted);font-size:.85rem;display:block}
+.fixitem{border:1.5px solid var(--amber);border-radius:14px;padding:1rem;margin-bottom:.9rem;background:var(--surface)}
+.fixitem .why{background:var(--amber-soft);border-radius:8px;padding:.45rem .7rem;margin:.4rem 0 .8rem;font-size:.95rem}
+
+/* rep */
+.rep{display:grid;grid-template-columns:330px 1fr;gap:1.25rem;align-items:start}
+.queue{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1rem;position:sticky;top:calc(env(safe-area-inset-top,0px) + 1rem)}
+.filters{display:flex;flex-wrap:wrap;gap:.4rem;margin:.5rem 0 .8rem}
+.filters button{font:inherit;font-size:.86rem;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:.25rem .75rem;min-height:34px;cursor:pointer}
+.filters button[aria-pressed="true"]{border-color:var(--water);background:var(--water-soft);color:var(--water);font-weight:600}
+.qlist{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
+.qlist button{font:inherit;width:100%;text-align:start;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:.6rem .75rem;color:var(--ink);cursor:pointer;display:grid;gap:.15rem}
+.qlist button[aria-current="true"]{border-color:var(--water);box-shadow:inset -4px 0 0 var(--water)}
+.qlist .l1{display:flex;justify-content:space-between;gap:.5rem;align-items:center}
+.qlist .rid{font-variant-numeric:tabular-nums;direction:ltr;font-size:.85rem;color:var(--muted)}
+.qlist .l2{font-size:.85rem;color:var(--muted)}
+.qlist .late{color:var(--amber);font-weight:600}
+.ctx{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.6rem 1.25rem;margin:.8rem 0 1rem;padding:.9rem 1rem;background:var(--surface-2);border-radius:12px}
+.ctx div span{display:block;font-size:.82rem;color:var(--muted)}
+.ctx div b{font-weight:600;overflow-wrap:anywhere}
+.flags{list-style:none;padding:0;margin:0 0 1rem;display:grid;gap:.4rem}
+.flags li{background:var(--amber-soft);border-radius:10px;padding:.5rem .8rem;font-size:.93rem;display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
+.flags li.info{background:var(--surface-2)}
+.items{list-style:none;padding:0;margin:0 0 1rem;display:grid;gap:.6rem}
+.item{border:1.5px solid var(--line);border-radius:14px;padding:.85rem 1rem;display:grid;gap:.5rem}
+.item.st-ok{border-color:var(--green)}
+.item.st-fix{border-color:var(--amber)}
+.item .ih{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.item .ih h3{margin:0}
+.ai{display:grid;grid-template-columns:auto 1fr;gap:.15rem .9rem;font-size:.9rem;background:var(--surface-2);border-radius:10px;padding:.5rem .75rem}
+.ai dt{color:var(--muted)}
+.ai dd{margin:0}
+.ai .mm{color:var(--red);font-weight:600}
+.ai .mt{color:var(--green);font-weight:600}
+.ai-note{font-size:.8rem;color:var(--muted);grid-column:1/-1}
+.decide{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.decide button[aria-pressed="true"].okb{background:var(--green);border-color:var(--green);color:#fff}
+.decide button[aria-pressed="true"].fixb{background:var(--amber);border-color:var(--amber);color:#fff}
+:root[data-theme="dark"] .decide button[aria-pressed="true"]{color:#101820}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .decide button[aria-pressed="true"]{color:#101820}}
+.tag{font-size:.8rem;border-radius:999px;padding:.08rem .55rem;background:var(--water-soft);color:var(--water);font-weight:600}
+.actions{position:sticky;bottom:calc(env(safe-area-inset-bottom,0px) + .5rem);background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:.8rem 1rem;display:flex;gap:.75rem;flex-wrap:wrap;align-items:center;margin-top:1rem}
+.actions .why{font-size:.88rem;color:var(--muted);flex-basis:100%}
+.hist{list-style:none;margin:0;padding:0;font-size:.9rem;display:grid;gap:.35rem}
+.hist li{display:grid;grid-template-columns:8.5rem 1fr;gap:.75rem}
+.hist time{color:var(--muted);font-variant-numeric:tabular-nums}
+.empty{padding:2rem 1rem;text-align:center;color:var(--muted)}
+
+/* admin */
+.admin{display:grid;gap:1.25rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.75rem}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:.8rem 1rem}
+.stat b{display:block;font-size:1.6rem;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:.9rem}
+.stat.alert{border-color:var(--amber)}
+.stat.alert b{color:var(--amber)}
+.admin-cols{display:grid;grid-template-columns:1.3fr 1fr;gap:1.25rem;align-items:start}
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{text-align:start;padding:.5rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:.85rem}
+td.num{font-variant-numeric:tabular-nums;direction:ltr;text-align:right}
+
+dialog{border:1px solid var(--line);border-radius:16px;padding:0;max-width:min(560px,92vw);width:100%;background:var(--surface);color:var(--ink)}
+dialog::backdrop{background:rgba(10,20,30,.55)}
+.dlg{padding:1.25rem}
+.docfake{border:1.5px dashed var(--line);border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center;background:var(--surface-2)}
+.docfake .blur{filter:blur(3px);user-select:none;letter-spacing:.2em}
+
+@media (max-width:900px){
+  .wizard,.rep,.status-grid,.admin-cols{grid-template-columns:1fr}
+  .side,.queue{position:static}
+  .side{order:2}
+}
+@media (max-width:600px){
+  .grid2,.grid3{grid-template-columns:1fr}
+  .panel{padding:1.1rem}
+  h1{font-size:1.45rem}
+  .review dl{grid-template-columns:1fr}
+  .hist li{grid-template-columns:1fr}
+  .dialwrap input.dial{font-size:1.6rem}
+  .ids div{flex-direction:column;gap:0}
+}
+@media (prefers-reduced-motion: no-preference){
+  .flash{animation:flash 1.2s ease-out 1}
+  @keyframes flash{from{box-shadow:0 0 0 4px var(--water-soft)}to{box-shadow:0 0 0 0 transparent}}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#app">דילוג לתוכן</a>
+<header class="top">
+  <div class="top-in">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2.5" opacity=".25"/><path d="M20 7c5 7 9 11.5 9 16a9 9 0 0 1-18 0c0-4.5 4-9 9-16z" fill="var(--water)"/></svg>
+      <div><b>מי רמת גן</b><span>העברת חשבון המים לשם השוכר</span></div>
+    </div>
+    <div class="roles" role="group" aria-labelledby="rolesLabel">
+      <span class="roles-label" id="rolesLabel">צפייה בתור</span>
+      <div class="seg">
+        <button type="button" data-action="role" data-v="citizen" aria-pressed="true">פונה</button>
+        <button type="button" data-action="role" data-v="rep" aria-pressed="false">נציג/ה</button>
+        <button type="button" data-action="role" data-v="admin" aria-pressed="false">מנהל/ת מערכת</button>
+      </div>
+    </div>
+  </div>
+</header>
+<main id="app" tabindex="-1"></main>
+<div id="live" class="sr-only" aria-live="polite"></div>
+<dialog id="docDialog" aria-labelledby="docTitle"><div class="dlg" id="docBody"></div></dialog>
+
+<script>
+(function(){
+"use strict";
+/* ---------- helpers ---------- */
+const $ = (s, r=document) => r.querySelector(s);
+const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const iso = d => { const z = new Date(d); z.setMinutes(z.getMinutes()-z.getTimezoneOffset()); return z.toISOString().slice(0,10); };
+const today = () => iso(new Date());
+const shiftDays = (n, base=new Date()) => { const d = new Date(base); d.setDate(d.getDate()+n); return d; };
+const fmtDay = s => { if(!s) return ''; const [y,m,d] = s.split('-'); return `${+d}.${+m}.${y}`; };
+const fmtDT = s => new Date(s).toLocaleString('he-IL',{day:'numeric',month:'numeric',hour:'2-digit',minute:'2-digit'});
+const dayDiff = (a,b) => Math.round((Date.parse(a) - Date.parse(b)) / 864e5);
+const ageDays = s => Math.floor((Date.now() - Date.parse(s)) / 864e5);
+const announce = t => { const l = $('#live'); l.textContent = ''; setTimeout(()=> l.textContent = t, 30); };
+const getPath = (o,p) => p.split('.').reduce((a,k)=> a==null ? a : a[k], o);
+const setPath = (o,p,v) => { const ks = p.split('.'); const last = ks.pop(); const t = ks.reduce((a,k)=> a[k], o); t[last] = v; };
+function validTz(s){ s = String(s||'').trim(); if(!/^\d{5,9}$/.test(s)) return false; s = s.padStart(9,'0'); let sum=0; for(let i=0;i<9;i++){ let n = +s[i] * ((i%2)+1); if(n>9) n-=9; sum+=n; } return sum%10===0; }
+const validPhone = s => /^05\d-?\d{7}$/.test(String(s||'').replace(/\s/g,''));
+const validEmail = s => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(s||'').trim());
+const kb = n => n > 1048576 ? (n/1048576).toFixed(1)+' MB' : Math.max(1,Math.round(n/1024))+' KB';
+const ME = 'דנה אברהם', REPS = ['דנה אברהם','רועי מזרחי','שירן חדד'];
+const STATUS = {submitted:'הוגשה, ממתינה לנציג', in_review:'בטיפול', needs_info:'ממתינה להשלמה', resubmitted:'הושלמה, חזרה לבדיקה', approved:'אושרה'};
+
+/* ---------- state ---------- */
+function emptyDraft(){ return {
+  prep:{submitter:''},
+  applicant:{firstName:'',lastName:'',phone:'',email:'',idNumber:'',idFile:null},
+  tenant:{firstName:'',lastName:'',phone:'',email:'',idNumber:'',idFile:null},
+  poaFile:null,
+  property:{street:'',house:'',apt:'',noApt:false,propertyNumber:''},
+  moveInDate:'', mailSame:true, mailAddress:'',
+  landlord:{firstName:'',lastName:'',phone:'',email:'',idNumber:'',idFile:null},
+  contractMode:'contract', contractFile:null,
+  water:{card:'',reading:'',readingDate:'',photo:null},
+  residentsTotal:'', adults:'', landlordLives:false, others:[],
+  consent:{declare:false,terms:false,updates:false,signature:''}
+};}
+function freshCitizen(){ return {step:0, draft:emptyDraft(), checked:[], submitTried:false, fileErrors:{}, submittedId:null, fixFiles:{}, fixReading:'', saved:false}; }
+const state = {
+  role:'citizen',
+  citizen:freshCitizen(),
+  requests:[], audit:[], incidents:[],
+  settings:{repsCanViewId:true, slaDays:3},
+  rep:{selected:null, filter:'all', fixErrors:{}},
+  seq:1
+};
+const D = () => state.citizen.draft;
+
+function mkItem(key,label,kind,file,ai){ return {key,label,kind,file,ai:ai||null,status:'pending',reason:'',updatedByCitizen:false}; }
+function file(name,size){ return {name,size:size||240000,type:'application/pdf',sample:true}; }
+function log(who,text,reqId,at){ state.audit.unshift({at:at||new Date().toISOString(), who, text, reqId:reqId||null}); }
+
+
+/* ---------- requirement logic (single source for citizen, rep, admin) ---------- */
+function tenantOf(d){ return d.prep.submitter==='rep' ? d.tenant : d.applicant; }
+function checklist(d){
+  const rep = d.prep.submitter==='rep';
+  const list = [
+    {k:'applicant.idFile', e:'🆔', t: rep ? 'תעודת זהות של מי שמגיש, עם ספח פתוח' : 'תעודת זהות שלך, עם ספח פתוח'},
+  ];
+  if(rep){ list.push({k:'poaFile', e:'✍️', t:'ייפוי כוח חתום על ידי השוכר'}); list.push({k:'tenant.idFile', e:'🆔', t:'תעודת זהות של השוכר, עם ספח פתוח'}); }
+  list.push({k:'landlord.idFile', e:'🔑', t:'תעודת זהות של בעל הדירה (כדאי לבקש ממנו מראש)'});
+  list.push({k:'contractFile', e:'📄', t:'חוזה השכירות: עמוד ראשון, שני ואחרון, או הצהרת בעל הנכס'});
+  list.push({k:'water.photo', e:'📸', t:'צילום של מונה המים ביום הכניסה, שבו רואים את הספרות'});
+  list.push({k:'others', e:'👥', t:'תעודות זהות עם ספח של כל בגיר נוסף שגר בדירה'});
+  return list;
+}
+function visOthers(d){ return (d.others||[]).slice(0, othersNeeded(d)); }
+function tenantNameOnly(d){ const t = tenantOf(d); return [t.firstName,t.lastName].join(' ').trim(); }
+function othersNeeded(d){ return Math.max(0, (+d.adults||0) - 1 - (d.landlordLives?1:0)); }
+function has(d,k){
+  if(k==='others'){
+    /* living alone: counts as done only after the residents step was actually gone through */
+    if(!d.adults) return false;
+    if(othersNeeded(d)===0) return state.citizen.checked.includes(4) || state.citizen.submitTried;
+    return visOthers(d).length>0 && visOthers(d).every(o=> o.idFile);
+  }
+  return !!getPath(d,k);
+}
+
+const STEPS = [
+  {t:'לפני שמתחילים', lead:'שתי שאלות קצרות, ואחריהן רשימה אישית של מה להכין. כך לא נתקעים באמצע.'},
+  {t:'הפרטים שלך', lead:''},
+  {t:'הדירה ותאריך הכניסה', lead:'החשבון יעבור לשם השוכר מתאריך הכניסה.'},
+  {t:'בעל הדירה והחוזה', lead:'הרשות צריכה לוודא שיש הסכם שכירות בין השוכר לבעל הדירה.'},
+  {t:'המונה והדיירים', lead:'קריאת המונה ביום הכניסה קובעת ממתי החיוב עובר אליך.'},
+  {t:'בדיקה ושליחה', lead:'אפשר לחזור לכל שלב ולתקן. אחרי השליחה יתקבל מספר פנייה.'}
+];
+
+function validate(step, d){
+  const e = [];
+  const req = (id,val,msg) => { if(!String(val??'').trim()) e.push({id,msg}); };
+  const person = (p, pre, who, needFile=true, needContact=true) => {
+    req(pre+'-fn', p.firstName, `יש להזין שם פרטי ${who}`);
+    req(pre+'-ln', p.lastName, `יש להזין שם משפחה ${who}`);
+    if(needContact){
+      if(!validPhone(p.phone)) e.push({id:pre+'-ph', msg:`יש להזין מספר נייד תקין ${who}, למשל 050-1234567`});
+      if(!validEmail(p.email)) e.push({id:pre+'-em', msg:`יש להזין כתובת דוא״ל תקינה ${who}`});
+    }
+    if(!validTz(p.idNumber)) e.push({id:pre+'-id', msg:`מספר הזהות ${who} אינו תקין. יש לבדוק שהוזנו 9 ספרות כולל ספרת ביקורת`});
+    if(needFile && !p.idFile) e.push({id:pre+'-f', msg:`יש לצרף תעודת זהות ${who} עם ספח פתוח`});
+  };
+  if(step===0){ if(!d.prep.submitter) e.push({id:'sub-self', msg:'יש לבחור מי מגיש את הבקשה'}); }
+  if(step===1){
+    if(d.prep.submitter==='rep'){ person(d.applicant,'ap','של המגיש'); if(!d.poaFile) e.push({id:'poa-f',msg:'יש לצרף ייפוי כוח חתום על ידי השוכר'}); person(d.tenant,'tn','של השוכר'); }
+    else person(d.applicant,'ap','');
+  }
+  if(step===2){
+    req('pr-st', d.property.street, 'יש להזין את שם הרחוב');
+    req('pr-hs', d.property.house, 'יש להזין מספר בית');
+    if(!d.property.noApt) req('pr-ap', d.property.apt, 'יש להזין מספר דירה, או לסמן שאין מספר דירה');
+    if(!d.moveInDate) e.push({id:'mv-dt', msg:'יש להזין את תאריך הכניסה לדירה'});
+    else if(dayDiff(d.moveInDate, today()) > 60) e.push({id:'mv-dt', msg:'אפשר להגיש עד 60 יום לפני הכניסה. יש לבדוק את התאריך'});
+    if(!d.mailSame) req('ml-ad', d.mailAddress, 'יש להזין כתובת למשלוח דואר');
+  }
+  if(step===3){
+    person(d.landlord,'ll','של בעל הדירה');
+    if(!d.contractFile) e.push({id:'ct-f', msg: d.contractMode==='contract' ? 'יש לצרף את חוזה השכירות' : 'יש לצרף את הצהרת בעל הנכס'});
+  }
+  if(step===4){
+    if(!/^\d{1,8}$/.test(d.water.reading)) e.push({id:'wt-rd', msg:'יש להזין את קריאת המונה, ספרות בלבד'});
+    if(!d.water.readingDate) e.push({id:'wt-dt', msg:'יש להזין את תאריך הקריאה'});
+    else if(d.water.readingDate > today()) e.push({id:'wt-dt', msg:'תאריך הקריאה לא יכול להיות בעתיד'});
+    if(!d.water.photo) e.push({id:'wt-f', msg:'יש לצרף צילום של המונה. הקריאה שהוזנה נשמרה'});
+    const tot = +d.residentsTotal, n = +d.adults, minAdults = 1 + (d.landlordLives?1:0);
+    if(!tot) e.push({id:'rs-n', msg:'יש לבחור כמה אנשים גרים בדירה בסך הכול'});
+    if(!n) e.push({id:'ad-n', msg:'יש לבחור כמה בגירים גרים בדירה'});
+    else if(n < minAdults) e.push({id:'ad-n', msg: d.landlordLives ? 'מספר הבגירים צריך לכלול גם את השוכר וגם את בעל הדירה, כי סימנת שהוא גר בדירה' : 'מספר הבגירים צריך לכלול את השוכר'});
+    else if(tot && n > tot) e.push({id:'ad-n', msg:'מספר הבגירים לא יכול להיות גדול ממספר הדיירים בסך הכול'});
+    visOthers(d).forEach((o,i)=>{
+      req(`ot${i}-nm`, o.name, `יש להזין שם מלא לבגיר נוסף ${i+1}`);
+      if(!validTz(o.idNumber)) e.push({id:`ot${i}-id`, msg:`מספר הזהות של בגיר נוסף ${i+1} אינו תקין`});
+      if(!o.idFile) e.push({id:`ot${i}-f`, msg:`יש לצרף תעודת זהות עם ספח של בגיר נוסף ${i+1}`});
+    });
+  }
+  if(step===5){
+    if(!d.consent.declare) e.push({id:'cs-dc', msg:'יש לאשר שהפרטים נכונים'});
+    if(!d.consent.terms) e.push({id:'cs-tr', msg:'יש לאשר את תנאי השימוש ומדיניות הפרטיות'});
+    req('cs-sg', d.consent.signature, 'יש להקליד שם מלא כחתימה');
+  }
+  return e;
+}
+function warnings(step, d){
+  const w = [];
+  if(step===2 && d.moveInDate && dayDiff(today(), d.moveInDate) > 30) w.push('תאריך הכניסה לפני יותר מ־30 יום. אפשר להגיש, אבל נציג יבדוק את ההעברה הרטרואקטיבית, וזה עלול לקחת יותר זמן.');
+  if(step===4 && d.moveInDate && d.water.readingDate && Math.abs(dayDiff(d.water.readingDate, d.moveInDate)) > 3) w.push(`תאריך הקריאה (${fmtDay(d.water.readingDate)}) רחוק מתאריך הכניסה (${fmtDay(d.moveInDate)}). כדאי לצלם את המונה ביום הכניסה, אחרת ייתכן חיוב על צריכה שאינה שלך.`);
+  return w;
+}
+
+/* ---------- field renderers ---------- */
+let curErrs = [];
+const errOf = id => (curErrs.find(x=> x.id===id)||{}).msg;
+function stepSeen(i){ const c = state.citizen; return i===5 ? c.submitTried : c.checked.includes(i); }
+function stepErrs(i){
+  const c = state.citizen;
+  const list = stepSeen(i) ? validate(i, D()) : [];
+  Object.entries(c.fileErrors||{}).forEach(([id,o])=>{ if(o.step===i && !list.some(x=> x.id===id)) list.unshift({id, msg:o.msg}); });
+  return list;
+}
+function selectField(id, path, label, help, max){
+  const v = String(getPath(D(), path) ?? ''); const err = errOf(id);
+  const ids = [id+'-h', err?id+'-e':''].filter(Boolean).join(' ');
+  return `<div class="field"><label for="${id}">${esc(label)}<span class="req" aria-hidden="true">*</span></label>
+    <p class="help" id="${id}-h">${help}</p>
+    <select id="${id}" data-path="${path}" data-rerender aria-required="true" aria-describedby="${ids}" ${err?'aria-invalid="true"':''} style="max-width:10rem">
+      <option value="" ${v===''?'selected':''}>בחירה</option>${Array.from({length:max},(_,i)=>`<option value="${i+1}" ${String(i+1)===v?'selected':''}>${i+1}</option>`).join('')}</select>
+    ${err?`<p class="err" id="${id}-e">${esc(err)}</p>`:''}</div>`;
+}
+function tf(o){
+  const v = getPath(D(), o.path) ?? '';
+  const err = errOf(o.id);
+  const ids = [o.help?o.id+'-h':'', err?o.id+'-e':''].filter(Boolean).join(' ');
+  return `<div class="field">
+    <label for="${o.id}">${esc(o.label)}${o.optional?' <span class="opt">(לא חובה)</span>':'<span class="req" aria-hidden="true">*</span>'}</label>
+    ${o.help?`<p class="help" id="${o.id}-h">${o.help}</p>`:''}
+    <input id="${o.id}" data-path="${o.path}" type="${o.type||'text'}" value="${esc(v)}" ${o.optional?'':'aria-required="true"'} ${ids?`aria-describedby="${ids}"`:''} ${err?'aria-invalid="true"':''} ${o.attrs||''}>
+    ${err?`<p class="err" id="${o.id}-e">${esc(err)}</p>`:''}
+  </div>`;
+}
+const ID_FRONT_SVG = `<svg viewBox="0 0 240 152" role="img" aria-label="איור: הצד הקדמי של תעודת זהות חכמה" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif" direction="ltr" style="direction:ltr">
+  <rect x="1" y="1" width="238" height="150" rx="11" fill="#DDE7EF" stroke="#9FB3C5"/>
+  <path d="M1 12a11 11 0 0 1 11-11h216a11 11 0 0 1 11 11v16H1z" fill="#C3D4E2"/>
+  <text x="229" y="19" text-anchor="end" font-size="10.5" font-weight="700" fill="#1E3A52">מדינת ישראל</text>
+  <text x="11" y="19" text-anchor="start" font-size="10.5" fill="#1E3A52">תעודת זהות</text>
+  <circle cx="120" cy="15" r="7" fill="none" stroke="#1E3A52" stroke-width="1.2"/><path d="M116 18v-5M120 18v-7M124 18v-5" stroke="#1E3A52" stroke-width="1.2"/>
+  <rect x="12" y="38" width="62" height="80" rx="5" fill="#B7C7D6"/>
+  <circle cx="43" cy="66" r="14" fill="#7C91A5"/><path d="M18 118c2-20 13-29 25-29s23 9 25 29z" fill="#7C91A5"/>
+  <rect x="84" y="94" width="26" height="20" rx="3" fill="#D9B65B" stroke="#A7862E"/><path d="M84 104h26M97 94v20" stroke="#A7862E" stroke-width=".8"/>
+  <g font-size="9" fill="#1E3A52" text-anchor="end">
+    <text x="229" y="48">שם משפחה: ישראלי</text>
+    <text x="229" y="63">שם פרטי: ישראל</text>
+    <text x="229" y="78">תאריך לידה: 01.01.1990</text>
+    <text x="229" y="93">מין: ז</text>
+  </g>
+  <rect x="150" y="101" width="79" height="4" rx="2" fill="#AFC1D0"/><rect x="170" y="110" width="59" height="4" rx="2" fill="#AFC1D0"/>
+  <text x="229" y="140" text-anchor="end" font-size="10.5" font-weight="700" fill="#1E3A52">מספר זהות 000000018</text>
+  <rect x="12" y="128" width="62" height="14" rx="2" fill="none" stroke="#9FB3C5"/><path d="M17 136c8-6 14 4 22-2s12 2 30-3" fill="none" stroke="#1E3A52" stroke-width="1"/>
+</svg>`;
+const ID_SEFACH_SVG = `<svg viewBox="0 0 240 152" role="img" aria-label="איור: ספח תעודת הזהות כשהוא פתוח, עם כתובת ורשימת ילדים" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif" direction="ltr" style="direction:ltr">
+  <rect x="1" y="1" width="238" height="150" rx="6" fill="#E6F1F6" stroke="#9FB3C5"/>
+  <path d="M1 30h238M1 60h238M1 90h238M1 120h238" stroke="#D2E3EC" stroke-width="6"/>
+  <line x1="120" y1="4" x2="120" y2="148" stroke="#8FA6B8" stroke-dasharray="4 3"/>
+  <g fill="#1E3A52" text-anchor="end">
+    <text x="229" y="18" font-size="9.5" font-weight="700">ספח לתעודת זהות</text>
+    <text x="229" y="34" font-size="8.5">מספר זהות 000000018</text>
+    <text x="229" y="52" font-size="8.5">כתובת:</text>
+    <text x="229" y="64" font-size="8.5">הרא״ה 45, רמת גן</text>
+    <text x="229" y="82" font-size="8.5">מצב אישי: נשוי</text>
+    <text x="229" y="100" font-size="8.5">בן/בת זוג: ישראלה</text>
+    <text x="110" y="18" font-size="9.5" font-weight="700">ילדים</text>
+  </g>
+  <g fill="#AFC1D0">
+    <rect x="12" y="30" width="60" height="4" rx="2"/><rect x="78" y="30" width="32" height="4" rx="2"/>
+    <rect x="12" y="46" width="60" height="4" rx="2"/><rect x="78" y="46" width="32" height="4" rx="2"/>
+    <rect x="12" y="62" width="60" height="4" rx="2"/><rect x="78" y="62" width="32" height="4" rx="2"/>
+    <rect x="130" y="114" width="99" height="4" rx="2"/><rect x="150" y="124" width="79" height="4" rx="2"/>
+  </g>
+  <circle cx="45" cy="118" r="17" fill="none" stroke="#6E8599" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <text x="45" y="121" text-anchor="middle" font-size="7" fill="#6E8599">חותמת</text>
+</svg>`;
+function hintBox(pid, srName, srDesc, body){
+  return `<div class="hint"><button type="button" class="hint-btn" data-action="toggleHint" data-v="${pid}" aria-expanded="false" aria-controls="${pid}" aria-describedby="${pid}-d"><span aria-hidden="true">i</span><span class="sr-only">${srName}</span></button>
+    <span class="sr-only" id="${pid}-d">${srDesc}</span>
+    <div class="hint-pop" id="${pid}"><div class="hint-card">${body}</div></div></div>`;
+}
+function idHint(id){
+  return hintBox(id+'-pop', 'דוגמה: איך נראית תעודת זהות עם ספח פתוח',
+    'יש לצלם את הצד הקדמי של התעודה, ואת הספח כשהוא פתוח לגמרי, כך שרואים את הכתובת ואת רשימת הילדים.',
+    `<div class="hint-figs">
+        <figure><figcaption style="margin:0 0 .3rem;font-weight:600;color:var(--ink)">הצד הקדמי של התעודה</figcaption>${ID_FRONT_SVG}</figure>
+        <figure><figcaption style="margin:0 0 .3rem;font-weight:600;color:var(--ink)">הספח, פתוח לגמרי</figcaption>${ID_SEFACH_SVG}</figure>
+      </div>
+      <ul><li>שני הצדדים של הספח צריכים להיראות: הכתובת ורשימת הילדים.</li><li>אפשר בתמונה אחת או בשתיים, בלי סנוור ובלי קצוות חתוכים.</li><li>תעודה ישנה (לא חכמה): מצלמים את התעודה עם הספח המחובר, פתוח.</li></ul>
+      <p class="fake">איור להמחשה בלבד. כל הפרטים בדויים.</p>`);
+}
+/* water meter illustration; ann=true adds reading annotations */
+function meterSVG(ann){
+  const dy = ann ? 34 : 0, H = ann ? 246 : 212;
+  const cell = (x,d,fill)=>`<text x="${x}" y="85" text-anchor="middle" font-size="17" font-weight="700" fill="${fill}" font-family="Arial, sans-serif">${d}</text>`;
+  const meter = `<g transform="translate(0,${dy})">
+    <rect x="0" y="92" width="44" height="26" fill="#B7882E"/><rect x="30" y="88" width="14" height="34" rx="2" fill="#9C7324"/>
+    <rect x="256" y="92" width="44" height="26" fill="#B7882E"/><rect x="256" y="88" width="14" height="34" rx="2" fill="#9C7324"/>
+    <circle cx="150" cy="105" r="90" fill="#C99A3E" stroke="#8C6620" stroke-width="3"/>
+    <circle cx="150" cy="105" r="77" fill="#DDE3E8" stroke="#8F9BA6" stroke-width="2"/>
+    <circle cx="150" cy="105" r="70" fill="#FAF9F4"/>
+    <text x="150" y="52" text-anchor="middle" font-size="8" fill="#555" font-family="Arial, sans-serif">Q3 = 2.5 m³/h</text>
+    <rect x="82" y="66" width="84" height="26" rx="3" fill="#1B1B1B"/>
+    ${['0','0','1','2','3'].map((d,k)=> cell(90.4+16.8*k, d, '#FFFFFF')).join('')}
+    <path d="M98.8 68v22M115.6 68v22M132.4 68v22M149.2 68v22" stroke="#444" stroke-width="1"/>
+    <rect x="170" y="66" width="48" height="26" rx="3" fill="#C62828"/>
+    ${['4','5','6'].map((d,k)=> cell(178+16*k, d, '#FFFFFF')).join('')}
+    <path d="M186 68v22M202 68v22" stroke="#8E1B1B" stroke-width="1"/>
+    <text x="124" y="107" text-anchor="middle" font-size="10" fill="#333" font-family="Arial, sans-serif">m³</text>
+    <circle cx="150" cy="134" r="15" fill="#FFFFFF" stroke="#9AA5AE"/>
+    <path d="M150 121v3M163 134h-3M150 147v-3M137 134h3" stroke="#777" stroke-width="1"/>
+    <path d="M150 134l8-9" stroke="#C62828" stroke-width="2" stroke-linecap="round"/><circle cx="150" cy="134" r="2" fill="#C62828"/>
+    <text x="150" y="166" text-anchor="middle" font-size="9" fill="#333" font-family="Arial, sans-serif">No. 21-4471803</text>
+  </g>`;
+  const notes = !ann ? '' : `
+    <rect x="77" y="96" width="94" height="33" rx="7" fill="none" stroke="#1B7F4B" stroke-width="3"/>
+    <line x1="124" y1="26" x2="124" y2="96" stroke="#1B7F4B" stroke-width="2"/>
+    <text x="124" y="19" text-anchor="middle" font-size="12" font-weight="700" fill="#1B7F4B" font-family="Arial, sans-serif">את זה מקלידים: 00123</text>
+    <rect x="166" y="96" width="56" height="33" rx="7" fill="none" stroke="#C62828" stroke-width="2" stroke-dasharray="5 3"/>
+    <line x1="252" y1="50" x2="212" y2="96" stroke="#C62828" stroke-width="1.5"/>
+    <text x="297" y="45" text-anchor="end" font-size="11" font-weight="700" fill="#C62828" font-family="Arial, sans-serif">אדומות: לא מקלידים</text>
+    <rect x="104" y="190" width="92" height="16" rx="4" fill="none" stroke="#6B7780" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="150" y="238" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7780" font-family="Arial, sans-serif">מספר המונה: לא מקלידים</text>
+    <line x1="150" y1="206" x2="150" y2="226" stroke="#6B7780" stroke-width="1.5"/>`;
+  return `<svg viewBox="0 0 300 ${H}" role="img" aria-label="${ann?'איור: מונה מים, עם סימון הספרות השחורות שמקלידים':'איור: מונה מים ביתי'}" xmlns="http://www.w3.org/2000/svg" direction="ltr" style="direction:ltr">${meter}${notes}</svg>`;
+}
+function meterPhotoHint(id){
+  return hintBox(id+'-pop', 'דוגמה: איך נראה מונה מים',
+    'מונה המים הוא שעון עגול עם חלון ספרות, בדרך כלל בארון המים בחדר המדרגות. יש לצלם מקרוב וישר מלמעלה, כך שכל הספרות ומספר המונה נראים.',
+    `<div class="hint-figs"><figure style="max-width:340px;margin-inline:auto"><figcaption style="margin:0 0 .3rem;font-weight:600;color:var(--ink)">כך נראה מונה מים ביתי</figcaption>${meterSVG(false)}</figure></div>
+     <ul><li>המונה נמצא בדרך כלל בארון המים בחדר המדרגות או ליד הכניסה לבניין, לפי מספר הדירה.</li><li>מצלמים מקרוב וישר מלמעלה, כך שרואים את כל הספרות ואת מספר המונה.</li><li>אם הזכוכית מלוכלכת או מכוסה אדים, כדאי לנגב אותה לפני הצילום.</li></ul>
+     <p class="fake">איור להמחשה בלבד.</p>`);
+}
+function readingHint(id){
+  return hintBox(id+'-pop', 'דוגמה: איפה נמצאת הקריאה במונה',
+    'מקלידים רק את הספרות השחורות בחלון המונה, משמאל לימין. לא מקלידים את הספרות האדומות ולא את מספר המונה שמודפס מתחת.',
+    `<div class="hint-figs"><figure style="max-width:360px;margin-inline:auto"><figcaption style="margin:0 0 .3rem;font-weight:600;color:var(--ink)">איפה הקריאה במונה</figcaption>${meterSVG(true)}</figure></div>
+     <ul><li>מקלידים רק את הספרות השחורות, משמאל לימין, כולל אפסים בהתחלה.</li><li>לא מקלידים את הספרות האדומות ולא את מספר המונה.</li><li>אם גלגל ספרות נעצר באמצע תזוזה, כך שרואים חצי מספר אחד וחצי מהמספר הבא, רושמים את הנמוך מביניהם.</li></ul>
+     <p class="fake">איור להמחשה בלבד.</p>`);
+}
+function ff(o){
+  const f = getPath(D(), o.path);
+  const err = errOf(o.id);
+  const ids = [o.help?o.id+'-h':'', err?o.id+'-e':''].filter(Boolean).join(' ');
+  return `<div class="field">
+    ${o.hint ? `<div class="lrow"><span class="flabel" id="${o.id}-l">${esc(o.label)}<span class="req" aria-hidden="true">*</span></span>${o.hint(o.id)}</div>` : `<span class="flabel" id="${o.id}-l">${esc(o.label)}<span class="req" aria-hidden="true">*</span></span>`}
+    ${o.help?`<p class="help" id="${o.id}-h">${o.help}</p>`:''}
+    ${f ? `<div class="filechip" id="${o.id}"  tabindex="-1"><span class="ok" aria-hidden="true">✓</span><span class="nm">${esc(f.name)}</span><small class="muted">${kb(f.size)}${f.sample?', קובץ לדוגמה':''}</small><span class="spacer"></span><button type="button" class="linkbtn" data-action="removeFile" data-path="${o.path}" data-focus="${o.id}">הסרה והחלפה<span class="sr-only"> של ${esc(o.label)}</span></button></div>`
+      : `<div class="filepick"><input type="file" class="sr-file" id="${o.id}" data-file="${o.path}" accept=".pdf,.png,.jpg,.jpeg,application/pdf,image/png,image/jpeg" aria-labelledby="${o.id}-l" ${ids?`aria-describedby="${ids}"`:''} ${err?'aria-invalid="true"':''}><label class="btn secondary" for="${o.id}" aria-hidden="true">בחירת קובץ</label><button type="button" class="linkbtn" data-action="sampleFile" data-path="${o.path}" data-name="${esc(o.sample||'sample.pdf')}" data-focus="${o.id}">צירוף קובץ לדוגמה<span class="sr-only"> עבור ${esc(o.label)}</span></button><small class="muted">PDF, JPG או PNG, עד 10MB</small></div>`}
+    ${err?`<p class="err" id="${o.id}-e">${esc(err)}</p>`:''}
+  </div>`;
+}
+function personFields(pre, path, who, withContact=true){
+  return `<div class="grid2">
+    ${tf({id:pre+'-fn', path:path+'.firstName', label:'שם פרטי', attrs:'autocomplete="given-name"'})}
+    ${tf({id:pre+'-ln', path:path+'.lastName', label:'שם משפחה', attrs:'autocomplete="family-name"'})}
+    ${withContact ? tf({id:pre+'-ph', path:path+'.phone', label:'טלפון נייד', type:'tel', help: pre==='ll' ? 'לבירורים בלבד. בעל הדירה לא מקבל עדכונים על הבקשה' : 'לשם יישלחו הודעות על מצב הבקשה', attrs:'dir="ltr" inputmode="tel" autocomplete="tel"'}) : ''}
+    ${withContact ? tf({id:pre+'-em', path:path+'.email', label:'דוא״ל', type:'email', attrs:'dir="ltr" autocomplete="email"'}) : ''}
+    ${tf({id:pre+'-id', path:path+'.idNumber', label:'מספר תעודת זהות', help:'9 ספרות, כולל ספרת הביקורת', attrs:'dir="ltr" inputmode="numeric" maxlength="9"'})}
+  </div>
+  ${ff({id:pre+'-f', path:path+'.idFile', label:`צילום תעודת הזהות ${who} עם ספח פתוח`, help:'אפשר תעודה וספח בקובץ אחד או בשני קבצים.', sample:`tz_${pre}.pdf`, hint:idHint})}`;
+}
+
+/* ---------- citizen: wizard ---------- */
+function stepBody(s){
+  const d = D();
+  if(s===0){
+    const sub = d.prep.submitter;
+    const err = errOf('sub-self');
+    return `
+    <div class="fixed"><span aria-hidden="true">📋</span><span><b>סוג הבקשה:</b> תחילת שכירות, נכס פרטי.</span></div>
+    <fieldset ${err?'aria-describedby="sub-e"':''}>
+      <legend><span class="ico" aria-hidden="true">👤</span>מי מגיש את הבקשה?<span class="req" aria-hidden="true">*</span></legend>
+      <div class="choice">
+        <label><input type="radio" name="sub" id="sub-self" data-path="prep.submitter" value="self" ${sub==='self'?'checked':''} data-rerender ${err?'aria-invalid="true"':''}><span><span class="t">אני השוכר/ת ומגיש/ה בעצמי</span><span class="d">הפרטים שלך ישמשו כפרטי השוכר</span></span></label>
+        <label><input type="radio" name="sub" id="sub-rep" data-path="prep.submitter" value="rep" ${sub==='rep'?'checked':''} data-rerender><span><span class="t">אני מגיש/ה בשם השוכר</span><span class="d">עורך דין, מתווך, בן משפחה או מיופה כוח אחר. נדרש ייפוי כוח חתום</span></span></label>
+      </div>
+      ${err?`<p class="err" id="sub-e">${esc(err)}</p>`:''}
+    </fieldset>
+    ${sub ? `<section aria-labelledby="kitH" class="notice"><h2 id="kitH"><span class="ico" aria-hidden="true">📝</span>מה להכין עבור הבקשה שלך</h2>
+      <ul class="prep-list">${checklist(d).map(i=>`<li><span class="ico" aria-hidden="true">${i.e}</span><span>${esc(i.t)}</span></li>`).join('')}</ul>
+      <p class="muted" style="margin:0">לא חובה: חשבון מים קודם של הדירה, אם יש. מופיעים בו מספר הנכס ומספר כרטיס המים. בלעדיו, הנציג יאתר את הנכס לפי הכתובת.</p>
+    </section>`:''}`;
+  }
+  if(s===1){
+    if(d.prep.submitter==='rep') return `
+      <fieldset><legend><span class="ico" aria-hidden="true">👤</span>הפרטים שלך (המגיש/ה)</legend>${personFields('ap','applicant','שלך')}
+      ${ff({id:'poa-f', path:'poaFile', label:'ייפוי כוח חתום על ידי השוכר', help:'ייפוי הכוח חייב לכלול את חתימת השוכר ואת פרטי הנכס.', sample:'poa_signed.pdf'})}</fieldset>
+      <fieldset><legend><span class="ico" aria-hidden="true">🙋</span>פרטי השוכר</legend>${personFields('tn','tenant','של השוכר')}</fieldset>`;
+    return `<fieldset><legend><span class="ico" aria-hidden="true">🙋</span>פרטי השוכר (את/ה)</legend>${personFields('ap','applicant','שלך')}</fieldset>`;
+  }
+  if(s===2){
+    return `<fieldset><legend><span class="ico" aria-hidden="true">🏠</span>כתובת הדירה</legend>
+      <div class="fixed"><span>יישוב: <b>רמת גן</b></span><span class="muted">סוג נכס: פרטי</span></div>
+      <div class="grid3">
+        ${tf({id:'pr-st', path:'property.street', label:'רחוב', attrs:'autocomplete="address-line1"'})}
+        ${tf({id:'pr-hs', path:'property.house', label:'מספר בית', attrs:'inputmode="numeric" dir="ltr"'})}
+        ${d.property.noApt ? `<div class="field"><span class="flabel">מספר דירה</span><p class="help" style="margin-top:.6rem">אין מספר דירה</p></div>` : tf({id:'pr-ap', path:'property.apt', label:'מספר דירה', attrs:'inputmode="numeric" dir="ltr"'})}
+      </div>
+      <label class="check"><input type="checkbox" id="pr-na" data-path="property.noApt" data-rerender ${d.property.noApt?'checked':''}><span>לבית הזה אין מספרי דירות (למשל בית פרטי)</span></label>
+      ${tf({id:'pr-pn', path:'property.propertyNumber', label:'מספר הנכס ברשות', optional:true, help:'מופיע בחשבון המים הקודם, ליד הכתובת. שוכרים חדשים לרוב לא יודעים אותו, ואפשר להשאיר ריק.', attrs:'dir="ltr"'})}
+    </fieldset>
+    <fieldset><legend><span class="ico" aria-hidden="true">📅</span>ממתי החשבון יעבור אליך</legend>
+      ${tf({id:'mv-dt', path:'moveInDate', label:'תאריך הכניסה לדירה', type:'date', help:'זה גם תאריך העברת החשבון. אותו תאריך שמופיע בחוזה.', attrs:'dir="ltr"'})}
+    </fieldset>
+    <fieldset><legend><span class="ico" aria-hidden="true">✉️</span>לאן לשלוח את החשבונות</legend>
+      <label class="check"><input type="checkbox" id="ml-sm" data-path="mailSame" data-rerender ${d.mailSame?'checked':''}><span>לכתובת הדירה</span></label>
+      ${d.mailSame?'':tf({id:'ml-ad', path:'mailAddress', label:'כתובת למשלוח דואר', help:'למשל כתובת קודמת, עד שתיבת הדואר בדירה מסודרת.'})}
+    </fieldset>`;
+  }
+  if(s===3){
+    const m = d.contractMode;
+    return `<fieldset><legend><span class="ico" aria-hidden="true">🔑</span>פרטי בעל הדירה</legend>${personFields('ll','landlord','של בעל הדירה')}</fieldset>
+    <fieldset><legend><span class="ico" aria-hidden="true">📄</span>מסמך השכירות</legend>
+      <div class="choice">
+        <label><input type="radio" name="ctm" id="ctm-c" data-path="contractMode" value="contract" data-rerender ${m==='contract'?'checked':''}><span><span class="t">חוזה שכירות</span><span class="d">עמוד ראשון, עמוד שני והעמוד האחרון עם החתימות</span></span></label>
+        <label><input type="radio" name="ctm" id="ctm-d" data-path="contractMode" value="declaration" data-rerender ${m==='declaration'?'checked':''}><span><span class="t">הצהרת בעל הנכס</span><span class="d">כשאין חוזה כתוב. ההצהרה חתומה על ידי בעל הדירה</span></span></label>
+      </div>
+      ${ff({id:'ct-f', path:'contractFile', label: m==='contract'?'קובץ החוזה':'קובץ ההצהרה', help: m==='contract'?'יש לצרף את שלושת העמודים. אפשר בקובץ PDF אחד.':'', sample: m==='contract'?'lease_pages_1_2_last.pdf':'owner_declaration.pdf'})}
+    </fieldset>`;
+  }
+  if(s===4){
+    const err = errOf('wt-rd');
+    const selfName = [tenantOf(d).firstName, tenantOf(d).lastName].join(' ').trim() || 'השוכר';
+    return `<fieldset><legend><span class="ico" aria-hidden="true">💧</span>מונה המים</legend>
+      <div class="ids" aria-label="איך מבדילים בין המספרים">
+        <div><b>קריאת מונה</b><span>הספרות שרצות על המונה עצמו. רק השחורות (מ״ק), בלי האדומות.</span></div>
+        <div><b>מספר כרטיס מים</b><span>מספר החשבון, מודפס בחשבון המים. לא על המונה.</span></div>
+        <div><b>מספר נכס</b><span>מזהה הדירה ברשות. הוזן (או דולג) בשלב הדירה.</span></div>
+      </div>
+      <div class="field">
+        <div class="lrow"><label for="wt-rd" style="margin:0">קריאת המונה ביום הכניסה<span class="req" aria-hidden="true">*</span></label>${readingHint('wt-rd')}</div>
+        <p class="help" id="wt-rd-h">ספרות בלבד, כפי שהן מופיעות משמאל לימין.</p>
+        <div class="dialwrap"><input id="wt-rd" class="dial" data-path="water.reading" value="${esc(d.water.reading)}" inputmode="numeric" maxlength="8" dir="ltr" placeholder="00000" autocomplete="off" aria-required="true" aria-describedby="wt-rd-h${err?' wt-rd-e':''}" ${err?'aria-invalid="true"':''}><span class="unit">מ״ק</span></div>
+        ${err?`<p class="err" id="wt-rd-e">${esc(err)}</p>`:''}
+      </div>
+      <div class="grid2">
+        ${tf({id:'wt-dt', path:'water.readingDate', label:'תאריך הקריאה', type:'date', attrs:'dir="ltr"'})}
+        ${tf({id:'wt-cd', path:'water.card', label:'מספר כרטיס מים', optional:true, help:'אם יש חשבון קודם. אחרת להשאיר ריק.', attrs:'dir="ltr" inputmode="numeric"'})}
+      </div>
+      ${ff({id:'wt-f', path:'water.photo', label:'צילום המונה', help:'צילום מקרוב, שבו רואים את כל הספרות ואת מספר המונה.', sample:'meter_movein.jpg', hint:meterPhotoHint})}
+    </fieldset>
+    <fieldset><legend><span class="ico" aria-hidden="true">👥</span>מי גר בדירה</legend>
+      ${selectField('rs-n','residentsTotal','כמה אנשים גרים בדירה בסך הכול?', `כולל ${esc(selfName)} וכל מי שגר בדירה, בכל גיל, גם ילדים.`, 12)}
+      <label class="check"><input type="checkbox" id="ll-lives" data-path="landlordLives" data-rerender ${d.landlordLives?'checked':''}><span>בעל הדירה גר גם הוא בדירה</span></label>
+      ${selectField('ad-n','adults','מתוכם, כמה בגירים (מגיל 18 ומעלה)?', `כולל ${esc(selfName)}. בעל הדירה לא נספר, אלא אם הוא גר בדירה.`, Math.max(1, +d.residentsTotal || 12))}
+      ${d.adults ? `<div class="counted"><p class="counted-h">כבר נספרו, ואין צורך לצרף שוב תעודת זהות:</p><ul>
+          <li>${tenantNameOnly(d) ? esc(tenantNameOnly(d))+' (השוכר/ת)' : 'השוכר/ת'}. תעודת הזהות צורפה בשלב "הפרטים שלך".</li>
+          ${d.landlordLives?`<li>${[d.landlord.firstName,d.landlord.lastName].join(' ').trim() ? esc([d.landlord.firstName,d.landlord.lastName].join(' ').trim())+' (בעל הדירה)' : 'בעל הדירה'}. תעודת הזהות צורפה בשלב "בעל הדירה והחוזה".</li>`:''}
+        </ul>${visOthers(d).length?`<p class="counted-h" style="margin-top:.5rem">צריך לצרף תעודת זהות עם ספח ${visOthers(d).length===1?'לבגיר נוסף אחד':'ל־'+visOthers(d).length+' בגירים נוספים'}:</p>`:''}</div>` : ''}
+      ${visOthers(d).map((o,i)=>`<fieldset><legend>בגיר נוסף ${i+1}</legend><div class="grid2">
+          ${tf({id:`ot${i}-nm`, path:`others.${i}.name`, label:'שם מלא'})}
+          ${tf({id:`ot${i}-id`, path:`others.${i}.idNumber`, label:'מספר תעודת זהות', attrs:'dir="ltr" inputmode="numeric" maxlength="9"'})}
+        </div>${ff({id:`ot${i}-f`, path:`others.${i}.idFile`, label:'תעודת זהות עם ספח מלא', sample:`tz_resident_${i+1}.pdf`, hint:idHint})}</fieldset>`).join('')}
+    </fieldset>`;
+  }
+  if(s===5){
+    const t = tenantOf(d), a = d.applicant;
+    const SEC_ICO = {'השוכר':'🙋','המגיש בשם השוכר':'👤','הדירה':'🏠','בעל הדירה והחוזה':'🔑','המונה והדיירים':'💧'};
+    const sec = (title, step, rows) => `<section><div class="rh"><h3><span class="ico" aria-hidden="true">${SEC_ICO[title]||''}</span>${title}</h3><button type="button" class="linkbtn" data-action="goStep" data-v="${step}">עריכה<span class="sr-only"> של ${title}</span></button></div><dl>${rows.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)||'<span class="muted">לא הוזן</span>'}</dd>`).join('')}</dl></section>`;
+    const fn = f => f ? f.name : '';
+    return `<div class="review">
+      ${sec('השוכר',1,[['שם',`${t.firstName} ${t.lastName}`],['נייד',t.phone],['דוא״ל',t.email],['תעודת זהות',`${t.idNumber}, ${fn(t.idFile)}`]])}
+      ${d.prep.submitter==='rep'?sec('המגיש בשם השוכר',1,[['שם',`${a.firstName} ${a.lastName}`],['תעודת זהות',`${a.idNumber}, ${fn(a.idFile)}`],['ייפוי כוח',fn(d.poaFile)]]):''}
+      ${sec('הדירה',2,[['כתובת',addr(d)],['מספר נכס',d.property.propertyNumber||'לא ידוע, יאותר לפי כתובת'],['תאריך כניסה',fmtDay(d.moveInDate)],['משלוח דואר',d.mailSame?'לכתובת הדירה':d.mailAddress]])}
+      ${sec('בעל הדירה והחוזה',3,[['בעל הדירה',`${d.landlord.firstName} ${d.landlord.lastName}`],['נייד',d.landlord.phone],['תעודת זהות',`${d.landlord.idNumber}, ${fn(d.landlord.idFile)}`],[d.contractMode==='contract'?'חוזה':'הצהרה',fn(d.contractFile)]])}
+      ${sec('המונה והדיירים',4,[['קריאה',`${d.water.reading} מ״ק, ${fmtDay(d.water.readingDate)}`],['צילום',fn(d.water.photo)],['מספר כרטיס מים',d.water.card||'לא נמסר'],['דיירים בסך הכול',d.residentsTotal],['מתוכם בגירים',d.adults],['בעל הדירה גר בדירה',d.adults?(d.landlordLives?'כן':'לא'):''],...visOthers(d).map((o,i)=>[`בגיר נוסף ${i+1}`,`${o.name}, ${fn(o.idFile)}`])])}
+    </div>
+    <fieldset><legend><span class="ico" aria-hidden="true">✍️</span>אישורים</legend>
+      ${chk('cs-dc','consent.declare','אני מצהיר/ה שהפרטים נכונים ומלאים, ומאשר/ת שהרשות תיצור איתי קשר בטלפון או בדוא״ל בנושא הבקשה.')}
+      ${chk('cs-tr','consent.terms','קראתי ואני מסכים/ה ל<a href="#" data-action="noop">תנאי השימוש ולמדיניות הפרטיות</a>.')}
+      <label class="check"><input type="checkbox" id="cs-up" data-path="consent.updates" ${d.consent.updates?'checked':''}><span>אשמח לקבל עדכונים על שירותים דיגיטליים של הרשות <span class="opt">(לא חובה, לא משפיע על הבקשה)</span></span></label>
+      ${tf({id:'cs-sg', path:'consent.signature', label:'חתימה: הקלדת שם מלא', help:'בדמו החתימה היא הקלדת שם. במערכת אמיתית: חתימה דיגיטלית או ציור חתימה.', attrs:'autocomplete="name"'})}
+    </fieldset>`;
+  }
+  return '';
+}
+function chk(id,path,html){ const err = errOf(id); const v = getPath(D(),path);
+  return `<div><label class="check"><input type="checkbox" id="${id}" data-path="${path}" ${v?'checked':''} aria-required="true" ${err?`aria-invalid="true" aria-describedby="${id}-e"`:''}><span>${html}<span class="req" aria-hidden="true">*</span></span></label>${err?`<p class="err" id="${id}-e" style="margin-top:-.5rem;margin-bottom:.6rem">${esc(err)}</p>`:''}</div>`; }
+function addr(d){ const p = d.property; return `${p.street} ${p.house}${p.noApt?'':(p.apt?`, דירה ${p.apt}`:'')}, רמת גן`; }
+
+function navHTML(){
+  const c = state.citizen, s = c.step;
+  return STEPS.map((st,i)=>{
+    const seen = stepSeen(i), n = seen ? validate(i, D()).length : 0;
+    const cls = seen ? (n ? 'issue' : 'done') : '';
+    const icon = seen ? (n ? '!' : '✓') : i+1;
+    const sr = seen ? (n ? `, ${n===1?'פרט אחד לתקן':n+' פרטים לתקן'}` : ', מלא ותקין') : ', טרם נבדק';
+    return `<li class="${cls} ${i===s?'current':''}"><button type="button" data-action="goStep" data-v="${i}" ${i===s?'aria-current="step"':''}><span class="num" aria-hidden="true">${icon}</span><span>${st.t}${n?`<small class="stepissue" aria-hidden="true">${n===1?'פרט אחד לתקן':n+' פרטים לתקן'}</small>`:''}<span class="sr-only">${sr}</span></span></button></li>`;
+  }).join('');
+}
+function kitHTML(){
+  const d = D();
+  if(!d.prep.submitter) return '';
+  return `<section aria-labelledby="kitSide"><h2 id="kitSide"><span class="ico" aria-hidden="true">📎</span>מסמכים שצורפו</h2><ul class="kit">
+    ${checklist(d).map(i=>`<li class="${has(d,i.k)?'have':''}"><span class="mark" aria-hidden="true"></span><span>${esc(i.t)}<span class="sr-only">${has(d,i.k)?', צורף':', עדיין לא צורף'}</span></span></li>`).join('')}
+  </ul></section>`;
+}
+function errBoxHTML(){
+  const s = state.citizen.step, errs = curErrs;
+  let h = errs.length ? `<div class="notice error" id="errSummary" tabindex="-1"><h2>${errs.length===1?'יש פרט אחד לתקן בשלב הזה':`יש ${errs.length} פרטים לתקן בשלב הזה`}</h2>
+    <p style="margin:.2rem 0 0;font-size:.9rem">אפשר לעבור לשלב אחר ולחזור לתקן אחר כך. את הבקשה אפשר לשלוח רק כשהכול תקין.</p>
+    <ul>${errs.map(e=>`<li><a href="#${e.id}" data-action="jump" data-v="${e.id}">${esc(e.msg)}</a></li>`).join('')}</ul></div>` : '';
+  if(s===5){
+    const other = [0,1,2,3,4].map(i=>({i, e:validate(i, D())})).filter(x=> x.e.length);
+    h += other.length ? `<div class="notice warn" id="crossSummary" tabindex="-1"><h2 style="color:var(--amber)">מה עוד חסר בשלבים הקודמים</h2>
+      ${other.map(x=>`<h3 style="margin:.6rem 0 .2rem">שלב ${x.i+1}: ${STEPS[x.i].t}</h3><ul>${x.e.map(e=>`<li><a href="#${e.id}" data-action="jump" data-step="${x.i}" data-v="${e.id}">${esc(e.msg)}</a></li>`).join('')}</ul>`).join('')}</div>`
+      : `<div class="notice ok">כל השלבים הקודמים מלאים ותקינים.</div>`;
+  }
+  return h;
+}
+function warnHTML(){ return warnings(state.citizen.step, D()).map(w=>`<div class="notice warn"><strong>לתשומת לב: </strong>${esc(w)}</div>`).join(''); }
+function updatePartials(){
+  if(state.role!=='citizen' || state.citizen.submittedId) return;
+  curErrs = stepErrs(state.citizen.step);
+  const set = (id,html)=>{ const n = document.getElementById(id); if(n) n.innerHTML = html; };
+  set('stepNav', navHTML()); set('kitBox', kitHTML()); set('errBox', errBoxHTML()); set('warnBox', warnHTML());
+}
+function patchField(el){
+  curErrs = stepErrs(state.citizen.step);
+  const msg = errOf(el.id);
+  const eid = el.id+'-e';
+  let p = document.getElementById(eid);
+  const db = new Set((el.getAttribute('aria-describedby')||'').split(' ').filter(Boolean));
+  if(msg){
+    el.setAttribute('aria-invalid','true');
+    if(!p){ p = document.createElement('p'); p.className = 'err'; p.id = eid; (el.closest('.dialwrap')||el).insertAdjacentElement('afterend', p); }
+    p.textContent = msg; db.add(eid);
+  } else { el.removeAttribute('aria-invalid'); if(p) p.remove(); db.delete(eid); }
+  db.size ? el.setAttribute('aria-describedby', [...db].join(' ')) : el.removeAttribute('aria-describedby');
+}
+function renderWizard(){
+  const c = state.citizen, s = c.step;
+  curErrs = stepErrs(s);
+  return `<div class="wizard">
+    <div class="side">
+      <section><h2 class="sr-only">שלבי הבקשה</h2><p class="nav-hint">אפשר לעבור בין השלבים בכל סדר. שלב עם פרטים חסרים או שגויים יסומן.</p><nav aria-label="שלבי הבקשה"><ol class="steps" id="stepNav">${navHTML()}</ol></nav></section>
+      <div id="kitBox">${kitHTML()}</div>
+      ${s===0 ? `<section class="practice" aria-labelledby="prH"><h2 id="prH">כלי תרגול</h2>
+        <button type="button" class="btn quiet small" data-action="fillDemo">מילוי הפרטים של נועה</button>
+        <button type="button" class="btn quiet small" data-action="fillPoa">מילוי: מיופה כוח בשם יוסף</button>
+        <button type="button" class="btn quiet small" data-action="scenarioPoaUnsigned">תרחיש: ייפוי כוח לא חתום</button>
+        <button type="button" class="btn quiet small" data-action="scenarioNoPhoto">תרחיש: חסר צילום מונה</button>
+        <button type="button" class="btn quiet small" data-action="resetDraft">איפוס הטופס</button>
+      </section>` : ''}
+    </div>
+    <section class="panel" aria-labelledby="stepTitle">
+      <div class="stephead"><h1 id="stepTitle" tabindex="-1">${STEPS[s].t}</h1><span class="of">שלב ${s+1} מתוך ${STEPS.length}</span></div>
+      ${STEPS[s].lead?`<p class="lead">${STEPS[s].lead}</p>`:''}
+      ${c.saved?`<div class="notice ok" role="status">הטיוטה נשמרה בדפדפן הזה. אפשר לסגור ולחזור, גם אחרי רענון. (במערכת אמיתית: קישור לחזרה נשלח לנייד.)</div>`:''}
+      <div id="errBox">${errBoxHTML()}</div>
+      <div id="warnBox">${warnHTML()}</div>
+            <form novalidate onsubmit="return false">${stepBody(s)}</form>
+      <div class="navbar">
+        ${s>0?`<button type="button" class="btn quiet" data-action="back">חזרה ל${STEPS[s-1].t}</button>`:''}
+        ${s>0?`<button type="button" class="linkbtn" data-action="saveDraft">שמירה והמשך אחר כך</button>`:''}
+        <span class="spacer"></span>
+        ${s<5?`<button type="button" class="btn" data-action="next">המשך ל${STEPS[s+1].t}</button>`:`<button type="button" class="btn" data-action="submit">שליחת הבקשה</button>`}
+      </div>
+    </section>
+  </div>`;
+}
+
+/* ---------- citizen: after submission ---------- */
+function renderCitizenStatus(){
+  const r = state.requests.find(x=> x.id===state.citizen.submittedId);
+  const st = r.status;
+  const stages = [
+    {k:'submitted', t:'הבקשה התקבלה', w:fmtDT(r.createdAt)},
+    {k:'in_review', t:'בבדיקה אצל נציג', w: r.assignee ? `מטפלת: ${r.assignee.split(' ')[0]}` : 'ממתינה לשיוך לנציג'}
+  ];
+  if(r.everNeededInfo){ stages.push({k:'needs_info', t: st==='needs_info' ? 'חסרים פרטים, מחכים לך' : 'השלמת פרטים', w: st==='needs_info' ? 'אפשר להשלים כאן, למטה' : 'ההשלמה התקבלה'}); stages.push({k:'resubmitted', t:'בדיקה של ההשלמה', w:''}); }
+  stages.push({k:'approved', t:'החשבון עבר לשמך', w: st==='approved' ? `מתאריך ${fmtDay(r.moveInDate)}` : ''});
+  const curIdx = st==='approved' ? stages.length : st==='submitted' ? 1 : stages.findIndex(x=> x.k===st);
+  const next = {
+    submitted:`הבקשה ממתינה לנציג. יעד הטיפול: עד ${state.settings.slaDays} ימי עבודה. כרגע אין צורך לעשות דבר. כל שינוי יישלח לנייד ${esc(r.phone)}.`,
+    in_review:'נציג בודק את הפרטים ואת המסמכים. אם יחסר משהו, נכתוב בדיוק מה ונשלח הודעה. לא יהיה צורך למלא את הבקשה מחדש.',
+    needs_info:'הנציג צריך עוד פרט אחד או יותר. כל מה שכבר נבדק ואושר נשמר. צריך להשלים רק את מה שמופיע כאן.',
+    resubmitted:'ההשלמה התקבלה וחזרה לאותה נציגה. היא תבדוק רק את מה שהשתנה.',
+    approved:`החשבון עבר לשמך מתאריך ${fmtDay(r.moveInDate)}, לפי קריאת מונה ${esc(r.reading)} מ״ק. החשבון הראשון יישלח ${esc(r.mail||'לכתובת הדירה')}.`
+  }[st];
+  const fixes = r.items.filter(i=> i.status==='fix');
+  const ff2 = state.citizen.fixFiles;
+  const ready = fixes.every(i=> ff2[i.key]);
+  return `<div class="status-grid">
+    <section class="panel" aria-labelledby="stepTitle">
+      <h1 id="stepTitle" tabindex="-1">${st==='needs_info'?'צריך להשלים פרטים':st==='approved'?'הבקשה אושרה':'הבקשה נשלחה'}</h1>
+      <div class="refbox"><span class="muted">מספר הפנייה</span><span class="ref">${esc(r.id)}</span><small class="muted">המספר נשלח גם ב־SMS. אפשר לחזור לבקשה עם המספר והנייד.</small></div>
+      <span class="badge b-${st}">מצב: ${esc(st==='needs_info'?'ממתינה להשלמה שלך':STATUS[st])}</span>
+      <h2 style="margin-top:1.25rem"><span class="ico" aria-hidden="true">🕒</span>מה קורה עכשיו</h2>
+      <p>${next}</p>
+      ${st==='needs_info'?`<h2 style="margin-top:1rem"><span class="ico" aria-hidden="true">📎</span>מה צריך להשלים</h2>
+        ${fixes.map(i=>{ const f = ff2[i.key]; const id='fx-'+i.key; return `<div class="fixitem"><h3>${esc(i.label)}</h3><p class="why"><b>הסיבה: </b>${esc(i.reason)}</p>
+          ${i.key==='meter_photo'?`<div class="field"><label for="fx-rd">קריאת המונה</label><p class="help" id="fx-rd-h">הקריאה שהוזנה נשמרה. אפשר לתקן אם צילמת שוב ביום אחר.</p><div class="dialwrap"><input id="fx-rd" class="dial" data-fixreading value="${esc(state.citizen.fixReading||r.reading)}" inputmode="numeric" maxlength="8" dir="ltr" aria-describedby="fx-rd-h"><span class="unit">מ״ק</span></div></div>`:''}
+          ${f?`<div class="filechip"><span class="ok" aria-hidden="true">✓</span><span class="nm">${esc(f.name)}</span><span class="spacer"></span><button type="button" class="linkbtn" data-action="removeFix" data-v="${i.key}">הסרה</button></div>`
+             :`<div class="filepick"><input type="file" class="sr-file" id="${id}" data-fix="${i.key}" accept=".pdf,.png,.jpg,.jpeg" aria-label="צירוף קובץ חדש: ${esc(i.label)}"><label class="btn secondary" for="${id}" aria-hidden="true">צירוף קובץ חדש</label><button type="button" class="linkbtn" data-action="sampleFix" data-v="${i.key}">קובץ לדוגמה</button></div>`}
+        </div>`;}).join('')}
+        <button type="button" class="btn" data-action="sendFix" ${ready?'':'aria-disabled="true"'}>שליחת ההשלמה</button>
+        ${ready?'':'<p class="help" style="margin-top:.4rem">הכפתור יופעל אחרי שכל הקבצים יצורפו.</p>'}`:''}
+      <details style="margin-top:1.25rem"><summary>מה הוגש</summary>
+        <ul>${r.items.map(i=>`<li>${esc(i.label)}: ${esc(i.file?i.file.name:'')}</li>`).join('')}</ul>
+      </details>
+      <div class="navbar" style="margin-top:1rem"><a class="btn secondary" href="#citizen" target="_blank" rel="noopener">בקשה נוספת בכרטיסייה חדשה</a><button type="button" class="btn quiet" data-action="newRequest">בקשה חדשה בכרטיסייה הזו</button><span class="spacer"></span><button type="button" class="linkbtn" data-action="role" data-v="rep">מעבר לתצוגת הנציג/ה</button></div>
+    </section>
+    <section class="panel" aria-labelledby="tlH"><h2 id="tlH"><span class="ico" aria-hidden="true">📍</span>התקדמות הבקשה</h2>
+      <ol class="timeline">${stages.map((x,i)=>{ const done = i<curIdx; const now = i===curIdx;
+        return `<li class="${done?'done':''} ${now?'now':''}"><span class="dot" aria-hidden="true">${done?'✓':''}</span><span><b>${esc(x.t)}</b><span class="sr-only">${done?', הושלם':now?', השלב הנוכחי':', טרם התחיל'}</span><span class="when">${esc(x.w)}</span></span></li>`;}).join('')}</ol>
+    </section>
+  </div>`;
+}
+
+/* ---------- submit ---------- */
+/* mocked extraction: sample files are "read"; real uploads are not read in this demo */
+function aiCheck(field, entered, f, poa){
+  if(!f) return null;
+  if(!f.sample) return {field, entered: poa?'נדרשת':entered, extracted:null, match:null};
+  if(poa){ const unsigned = /unsigned/i.test(f.name); return {field, entered:'נדרשת', extracted: unsigned?'לא זוהתה חתימה':'זוהתה חתימה', match:!unsigned}; }
+  return {field, entered, extracted:entered, match:true};
+}
+function buildRequest(d){
+  const id = 'RG-2026-' + String(state.seq++).padStart(4,'0');
+  const t = tenantOf(d), rep = d.prep.submitter==='rep';
+  const idAi = p => aiCheck('מספר זהות', p.idNumber, p.idFile);
+  const nm = p => `${p.firstName} ${p.lastName}`.trim();
+  const items = [mkItem('applicant_id', rep?'תעודת זהות של המגיש (מיופה הכוח)':'תעודת זהות של השוכר/ת','id',d.applicant.idFile,idAi(d.applicant))];
+  if(rep){ items.push(mkItem('poa','ייפוי כוח חתום','doc',d.poaFile,aiCheck('חתימת השוכר על ייפוי הכוח','נדרשת',d.poaFile,true)));
+           items.push(mkItem('tenant_id','תעודת זהות של השוכר/ת','id',d.tenant.idFile,idAi(d.tenant))); }
+  items.push(mkItem('landlord_id', d.landlordLives?'תעודת זהות של בעל הנכס (גר בדירה, נספר כבגיר)':'תעודת זהות של בעל הנכס','id',d.landlord.idFile,idAi(d.landlord)));
+  items.push(mkItem('contract', d.contractMode==='contract'?'חוזה שכירות (עמוד ראשון, שני ואחרון)':'הצהרת בעל הנכס','doc',d.contractFile,aiCheck('תאריך כניסה במסמך',fmtDay(d.moveInDate),d.contractFile)));
+  items.push(mkItem('meter_photo','צילום מונה המים','photo',d.water.photo,aiCheck('קריאה בתמונה',d.water.reading,d.water.photo)));
+  visOthers(d).forEach((o,i)=> items.push(mkItem('resident_'+(i+1),`תעודת זהות עם ספח: ${o.name}`,'id',o.idFile,aiCheck('מספר זהות',o.idNumber,o.idFile))));
+  const now = new Date().toISOString();
+  const person = p => ({name:nm(p), phone:p.phone, email:p.email, idNumber:p.idNumber});
+  return {id, type:'תחילת שכירות', submitter:d.prep.submitter, submitterName: rep?`${nm(d.applicant)} (מיופה כוח)`:nm(t),
+    tenantName:nm(t), phone:t.phone, email:t.email, landlordName:nm(d.landlord),
+    tenant:person(t), applicant: rep?person(d.applicant):null, landlord:{...person(d.landlord), livesThere:!!d.landlordLives},
+    address:addr(d), propertyNumber:d.property.propertyNumber, waterCard:d.water.card, moveInDate:d.moveInDate, reading:d.water.reading, readingDate:d.water.readingDate,
+    residentsTotal:+d.residentsTotal, adults:+d.adults, otherAdults:visOthers(d).map(o=>o.name), contractMode:d.contractMode,
+    updatesConsent:!!d.consent.updates, signature:d.consent.signature,
+    mail: d.mailSame ? 'לכתובת הדירה' : `אל ${d.mailAddress}`, status:'submitted', assignee:null, createdAt:now, updatedAt:now, everNeededInfo:false, items, mine:true};
+}
+
+/* ---------- rep ---------- */
+function flagsFor(r){
+  const f = [];
+  if(!r.propertyNumber) f.push({t:'לא הוזן מספר נכס. יש לאתר את הנכס לפי הכתובת.', act:'findProp'});
+  if(dayDiff(r.createdAt.slice(0,10), r.moveInDate) > 30) f.push({t:`העברה רטרואקטיבית: הכניסה ב־${fmtDay(r.moveInDate)}, יותר מ־30 יום לפני ההגשה.`});
+  if(r.readingDate && Math.abs(dayDiff(r.readingDate, r.moveInDate)) > 3) f.push({t:`תאריך קריאת המונה (${fmtDay(r.readingDate)}) רחוק מתאריך הכניסה (${fmtDay(r.moveInDate)}).`});
+  const poa = (r.items||[]).find(i=> i.key==='poa');
+  if(poa && poa.ai && poa.ai.match===false) f.unshift({t:'ייפוי הכוח לא חתום: לא זוהתה חתימת השוכר על המסמך. יש לבקש ייפוי כוח חתום לפני אישור הבקשה.', bad:true});
+  else if(r.submitter==='rep') f.push({t:'הוגש על ידי מיופה כוח. יש לוודא שייפוי הכוח חתום ומתייחס לנכס.', info:true});
+  if(r.landlord && r.landlord.livesThere) f.push({t:'בעל הדירה גר בדירה ונספר כבגיר. תעודת הזהות שלו צורפה פעם אחת, בשלב בעל הדירה.', info:true});
+  const unread = (r.items||[]).filter(i=> i.ai && i.ai.extracted===null).length;
+  if(unread) f.push({t:`${unread===1?'מסמך אחד לא נבדק':unread+' מסמכים לא נבדקו'} אוטומטית, ויש לבדוק ${unread===1?'אותו':'אותם'} ידנית.`, info:true});
+  return f;
+}
+function repList(){
+  const f = state.rep.filter;
+  return state.requests.filter(r=> f==='all' ? true : f==='unassigned' ? !r.assignee : f==='mine' ? r.assignee===ME && r.status!=='approved' : f==='waiting' ? r.status==='needs_info' : true);
+}
+function renderRep(){
+  const list = repList();
+  if(!state.rep.selected || !state.requests.find(r=>r.id===state.rep.selected)) state.rep.selected = (list[0]||state.requests[0]||{}).id;
+  const r = state.requests.find(x=> x.id===state.rep.selected);
+  const F = [['all','הכול'],['mine','שלי'],['unassigned','לא משויכות'],['waiting','ממתינות לפונה']];
+  return `<div class="rep">
+    <section class="queue" aria-labelledby="qH">
+      <h1 id="qH" style="font-size:1.3rem">תור הבקשות</h1>
+      <p class="muted" style="font-size:.9rem;margin:0">מחובר/ת: ${ME}</p>
+      <div class="filters" role="group" aria-label="סינון">${F.map(([k,t])=>`<button type="button" data-action="repFilter" data-v="${k}" aria-pressed="${state.rep.filter===k}">${t}</button>`).join('')}</div>
+      ${list.length?`<ul class="qlist">${list.map(x=>{ const age = ageDays(x.updatedAt); const late = ['submitted','in_review','resubmitted'].includes(x.status) && age > state.settings.slaDays;
+        return `<li><button type="button" data-action="repSelect" data-v="${x.id}" aria-current="${x.id===state.rep.selected}">
+          <span class="l1"><b>${esc(x.tenantName)}${x.mine?' <span class="tag">חדשה</span>':''}</b><span class="badge b-${x.status}">${STATUS[x.status]}</span></span>
+          <span class="l2"><span class="rid">${x.id}</span> · ${x.assignee?esc(x.assignee):'ללא אחראי'} · <span class="${late?'late':''}">${age===0?'עודכנה היום':`ללא שינוי ${age} ימים`}</span></span>
+        </button></li>`;}).join('')}</ul>`:`<p class="empty">אין בקשות בסינון הזה.</p>`}
+    </section>
+    ${r?renderCase(r):'<section class="panel empty" aria-labelledby="stepTitle"><h1 id="stepTitle" tabindex="-1" style="font-size:1.3rem">אין עדיין בקשות</h1><p>בקשה שתישלח מתצוגת הפונה תופיע כאן מיד, גם אם היא נשלחת מכרטיסייה אחרת.</p></section>'}
+  </div>`;
+}
+function repDetails(r){
+  const V = v => (v===undefined || v===null || v==='') ? '<span class="muted">לא נמסר</span>' : esc(v);
+  const L = v => (v===undefined || v===null || v==='') ? '<span class="muted">לא נמסר</span>' : `<span dir="ltr">${esc(v)}</span>`;
+  const grp = (title, rows) => `<div class="dgroup"><h3>${title}</h3><dl>${rows.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl></div>`;
+  const t = r.tenant || {name:r.tenantName, phone:r.phone, email:r.email};
+  const l = r.landlord || {name:r.landlordName};
+  const adultsLine = r.adults ? `${r.adults}${r.otherAdults ? ` (${[t.name, l.livesThere?`${l.name} (בעל הדירה)`:'', ...r.otherAdults].filter(Boolean).map(esc).join(', ')})` : ''}` : V('');
+  return `<div class="details">
+    ${grp('הבקשה', [['מספר פנייה', L(r.id)], ['סוג', V(r.type)], ['הוגשה', V(fmtDT(r.createdAt))], ['הגשה', r.submitter==='rep'?'על ידי מיופה כוח':'עצמאית'], ['חתימה', V(r.signature)]])}
+    ${grp('השוכר/ת', [['שם', V(t.name)], ['נייד', L(t.phone)], ['דוא״ל', L(t.email)], ['מספר זהות', L(t.idNumber)]])}
+    ${r.submitter==='rep' ? grp('מיופה הכוח', [['שם', V(r.applicant && r.applicant.name || r.submitterName)], ['נייד', L(r.applicant && r.applicant.phone)], ['דוא״ל', L(r.applicant && r.applicant.email)], ['מספר זהות', L(r.applicant && r.applicant.idNumber)]]) : ''}
+    ${grp('בעל הדירה', [['שם', V(l.name)], ['נייד', L(l.phone)], ['דוא״ל', L(l.email)], ['מספר זהות', L(l.idNumber)], ['גר בדירה', l.livesThere===undefined?V(''):(l.livesThere?'כן, נספר כבגיר':'לא')]])}
+    ${grp('הנכס והחשבון', [['כתובת', V(r.address)], ['מספר נכס', r.propertyNumber?L(r.propertyNumber):'<span class="muted">לא ידוע</span>'], ['תאריך העברה', V(fmtDay(r.moveInDate))], ['משלוח חשבונות', V(r.mail)], ['מסמך שכירות', r.contractMode?(r.contractMode==='contract'?'חוזה':'הצהרת בעל הנכס'):V('')], ['עדכונים דיגיטליים', r.updatesConsent===undefined?V(''):(r.updatesConsent?'הסכים/ה':'לא הסכים/ה')]])}
+    ${grp('מים ודיירים', [['קריאת מונה', r.reading?`${L(r.reading)} מ״ק`:V('')], ['תאריך קריאה', V(fmtDay(r.readingDate))], ['מספר כרטיס מים', r.waterCard?L(r.waterCard):'<span class="muted">לא נמסר</span>'], ['דיירים בסך הכול', V(r.residentsTotal)], ['מתוכם בגירים', adultsLine]])}
+  </div>`;
+}
+function renderCase(r){
+  const mine = r.assignee===ME;
+  const editable = mine && ['in_review','resubmitted'].includes(r.status);
+  const fixes = r.items.filter(i=>i.status==='fix'), pend = r.items.filter(i=>i.status==='pending');
+  const allOk = r.items.every(i=> i.status==='ok');
+  const fe = state.rep.fixErrors;
+  const flags = flagsFor(r);
+  const hist = state.audit.filter(a=> a.reqId===r.id);
+  let why = '';
+  if(!mine && r.status!=='approved') why = 'הבקשה לא משויכת אלייך. כדי לבדוק ולפעול יש לשייך אותה.';
+  else if(r.status==='needs_info') why = 'ממתינה לפונה. כשתגיע השלמה, הבקשה תחזור אלייך עם סימון של מה שהשתנה.';
+  else if(r.status==='approved') why = 'הבקשה אושרה. אין פעולות נוספות.';
+  else if(pend.length) why = `נותרו ${pend.length} פריטים לבדיקה.`;
+  return `<section class="panel" aria-labelledby="stepTitle">
+    <div class="row"><h1 id="stepTitle" tabindex="-1" style="margin:0">${esc(r.tenantName)}</h1><span class="badge b-${r.status}">${STATUS[r.status]}</span><span class="spacer"></span>
+      ${!r.assignee?`<button type="button" class="btn" data-action="assignMe">שיוך אליי</button>`: mine?'<span class="muted">באחריותך</span>':`<span class="muted">באחריות ${esc(r.assignee)}</span>${r.status!=='approved'?' <button type="button" class="btn quiet small" data-action="assignMe">העברה אליי</button>':''}`}
+    </div>
+    ${repDetails(r)}
+    ${flags.length?`<h2><span class="ico" aria-hidden="true">🔎</span>בדיקות אוטומטיות</h2><ul class="flags">${flags.map(f=>`<li class="${f.info?'info':f.bad?'bad':''}"><span>${esc(f.t)}</span>${f.act==='findProp'&&mine?'<button type="button" class="btn quiet small" data-action="findProp">איתור לפי כתובת</button>':''}</li>`).join('')}</ul>`:''}
+    <h2><span class="ico" aria-hidden="true">📂</span>מסמכים ונתונים</h2>
+    <p class="help">ההשוואה מבוססת על חילוץ אוטומטי מהמסמך. היא הצעה בלבד: ההחלטה על כל פריט היא של הנציגה.</p>
+    <ul class="items">${r.items.map(i=>{ const ai=i.ai; const err = fe[i.key];
+      return `<li class="item st-${i.status}"><div class="ih"><h3>${esc(i.label)}</h3>
+          ${i.status==='ok'?'<span class="badge b-approved">נבדק, תקין</span>':i.status==='fix'?'<span class="badge b-needs_info">דורש השלמה</span>':'<span class="badge b-in_review">טרם נבדק</span>'}
+          ${i.updatedByCitizen?'<span class="tag">עודכן על ידי הפונה</span>':''}
+          <span class="spacer"></span><button type="button" class="btn quiet small" data-action="viewDoc" data-v="${i.key}">הצגת המסמך<span class="sr-only"> ${esc(i.label)}</span></button></div>
+        <span class="muted" style="font-size:.88rem">${esc(i.file?i.file.name:'לא צורף')}</span>
+        ${ai?`<dl class="ai"><dt>${esc(ai.field)}: בבקשה</dt><dd dir="auto">${esc(ai.entered)}</dd><dt>במסמך (חולץ)</dt><dd>${ai.extracted===null?'<span class="unk">לא נבדק אוטומטית, יש לבדוק ידנית</span>':`<span dir="auto">${esc(ai.extracted)}</span> <span class="${ai.match?'mt':'mm'}">${ai.match?'תואם':'לא תואם'}</span>`}</dd></dl>`:''}
+        ${editable?`<div class="decide" role="group" aria-label="החלטה על ${esc(i.label)}">
+          <button type="button" class="btn quiet small okb" data-action="itemOk" data-v="${i.key}" aria-pressed="${i.status==='ok'}">תקין</button>
+          <button type="button" class="btn quiet small fixb" data-action="itemFix" data-v="${i.key}" aria-pressed="${i.status==='fix'}">דורש השלמה</button></div>
+          ${i.status==='fix'?`<div class="field" style="margin:0"><label for="rs-${i.key}">מה בדיוק לתקן (הפונה יראה את הנוסח הזה)<span class="req" aria-hidden="true">*</span></label><input type="text" id="rs-${i.key}" data-reason="${i.key}" value="${esc(i.reason)}" ${err?`aria-invalid="true" aria-describedby="rs-${i.key}-e"`:''}>${err?`<p class="err" id="rs-${i.key}-e">${esc(err)}</p>`:''}</div>`:''}`
+          : i.status==='fix' && i.reason ? `<p class="help" style="margin:0"><b>נשלח לפונה:</b> ${esc(i.reason)}</p>`:''}
+      </li>`;}).join('')}</ul>
+    <div class="actions">
+      <button type="button" class="btn secondary" data-action="sendInfo" ${editable&&fixes.length?'':'aria-disabled="true"'}>שליחת בקשת השלמה${fixes.length?` (${fixes.length})`:''}</button>
+      <button type="button" class="btn" data-action="approve" ${editable&&allOk?'':'aria-disabled="true"'}>אישור והעברת החשבון</button>
+      ${why?`<span class="why">${esc(why)}</span>`:''}
+    </div>
+    <h2 style="margin-top:1.25rem"><span class="ico" aria-hidden="true">🕒</span>היסטוריה</h2>
+    ${hist.length?`<ul class="hist">${hist.map(h=>`<li><time datetime="${h.at}">${fmtDT(h.at)}</time><span><b>${esc(h.who)}:</b> ${esc(h.text)}</span></li>`).join('')}</ul>`:'<p class="muted">אין פעולות עדיין.</p>'}
+  </section>`;
+}
+
+/* ---------- admin ---------- */
+function renderAdmin(){
+  const R = state.requests, sla = state.settings.slaDays;
+  const open = R.filter(r=> r.status!=='approved');
+  const unassigned = R.filter(r=> !r.assignee);
+  const late = R.filter(r=> ['submitted','in_review','resubmitted'].includes(r.status) && ageDays(r.updatedAt) > sla);
+  const waiting = R.filter(r=> r.status==='needs_info');
+  const attention = [...new Set([...unassigned, ...late])];
+  return `<div class="admin">
+    <div><h1 id="stepTitle" tabindex="-1">בקרת טיפול</h1></div>
+    <div class="stats">
+      <div class="stat"><b>${open.length}</b><span>בקשות פתוחות</span></div>
+      <div class="stat ${unassigned.length?'alert':''}"><b>${unassigned.length}</b><span>ללא אחראי</span></div>
+      <div class="stat ${late.length?'alert':''}"><b>${late.length}</b><span>מעבר ליעד (${sla} ימים)</span></div>
+      <div class="stat"><b>${waiting.length}</b><span>ממתינות לפונה</span></div>
+      <div class="stat ${state.incidents.length?'alert':''}"><b>${state.incidents.length}</b><span>העלאות שנכשלו</span></div>
+    </div>
+    <div class="admin-cols">
+      <section class="panel" aria-labelledby="attH"><h2 id="attH"><span class="ico" aria-hidden="true">📌</span>דורשות שיוך או טיפול</h2>
+        ${attention.length?`<div class="tbl-wrap"><table><thead><tr><th scope="col">פנייה</th><th scope="col">שוכר</th><th scope="col">מצב</th><th scope="col">ללא שינוי</th><th scope="col">אחראי</th></tr></thead><tbody>
+        ${attention.map(r=>`<tr><td class="num">${r.id}</td><td>${esc(r.tenantName)}</td><td><span class="badge b-${r.status}">${STATUS[r.status]}</span></td><td class="num">${ageDays(r.updatedAt)} ימים</td>
+          <td><label class="sr-only" for="as-${r.id}">שיוך ${r.id}</label><select id="as-${r.id}" data-assign="${r.id}" style="min-height:38px;padding:.2rem .5rem"><option value="">ללא</option>${REPS.map(n=>`<option ${r.assignee===n?'selected':''}>${n}</option>`).join('')}</select></td></tr>`).join('')}
+        </tbody></table></div>`:`<p class="empty">${R.length?'כל הבקשות משויכות ובתוך יעד הזמן.':'אין עדיין בקשות במערכת.'}</p>`}
+        <h2 style="margin-top:1.25rem"><span class="ico" aria-hidden="true">⚠️</span>העלאות שנכשלו</h2>
+        ${state.incidents.length?`<ul class="hist">${state.incidents.map(i=>`<li><time>${fmtDT(i.at)}</time><span>${esc(i.text)} <span class="muted">(שלב: ${esc(i.step)})</span></span></li>`).join('')}</ul><p class="help" style="margin-top:.6rem">אם אותה תקלה חוזרת, זה סימן לשינוי בטופס (למשל תמיכה ב־HEIC מאייפון), לא לפנייה לתושב.</p>`:'<p class="muted">אין.</p>'}
+      </section>
+      <section class="panel" aria-labelledby="setH"><h2 id="setH"><span class="ico" aria-hidden="true">⚙️</span>הגדרות והרשאות</h2>
+        <label class="check"><input type="checkbox" id="st-id" data-setting="repsCanViewId" ${state.settings.repsCanViewId?'checked':''}><span>נציגים רשאים לצפות בצילומי תעודות זהות<br><small class="muted">כל צפייה נרשמת ביומן. כשכבוי, הנציג רואה רק את תוצאת הבדיקה האוטומטית.</small></span></label>
+        <div class="field"><label for="sla">יעד זמן טיפול (ימים)</label><input id="sla" type="number" min="1" max="30" data-setting="slaDays" value="${sla}" style="max-width:7rem" dir="ltr"></div>
+        <h2 style="margin-top:1rem"><span class="ico" aria-hidden="true">🗂️</span>יומן פעולות</h2>
+        ${state.audit.length?'':'<p class="muted">אין עדיין פעולות.</p>'}<ul class="hist">${state.audit.slice(0,14).map(a=>`<li><time datetime="${a.at}">${fmtDT(a.at)}</time><span><b>${esc(a.who)}</b> ${esc(a.text)}${a.reqId?` <span class="muted" dir="ltr" style="white-space:nowrap">${a.reqId}</span>`:''}</span></li>`).join('')}</ul>
+        <div class="danger-zone"><h2><span class="ico" aria-hidden="true">🧹</span>איפוס המערכת</h2>
+          <p class="help">מוחק את כל הבקשות, יומן הפעולות, התקלות וההגדרות, בכל הכרטיסיות הפתוחות. המערכת תחזור להיות ריקה.</p>
+          <button type="button" class="btn danger" data-action="resetAll">איפוס כל המערכת</button></div>
+      </section>
+    </div>
+  </div>`;
+}
+
+/* ---------- render ---------- */
+function render(focusSel){
+  document.querySelectorAll('.seg button').forEach(b=> b.setAttribute('aria-pressed', String(b.dataset.v===state.role)));
+  const ae = document.activeElement, active = ae && ae.id;
+  let sel = null; try{ if(ae && typeof ae.selectionStart==='number') sel = [ae.selectionStart, ae.selectionEnd]; }catch(_){}
+  if(location.hash.slice(1)!==state.role){ try{ history.replaceState(null,'','#'+state.role); }catch(_){} }
+  const app = $('#app');
+  app.innerHTML = state.role==='citizen' ? (state.citizen.submittedId ? renderCitizenStatus() : renderWizard()) : state.role==='rep' ? renderRep() : renderAdmin();
+  let target = null; try{ target = focusSel ? $(focusSel) : (active ? document.getElementById(active) : null); }catch(_){}
+  if(target){ target.focus({preventScroll: !focusSel}); if(sel && !focusSel && target.setSelectionRange){ try{ target.setSelectionRange(sel[0], sel[1]); }catch(_){} } }
+}
+function markLeft(){ const c = state.citizen; if(c.step<5 && !c.checked.includes(c.step)) c.checked.push(c.step); }
+function goStep(n, focusId){
+  markLeft(); const c = state.citizen; c.step = n; c.saved = false;
+  render(focusId ? '#'+focusId : '#stepTitle');
+  if(focusId){ const t = document.getElementById(focusId); if(t) t.scrollIntoView({block:'center'}); } else window.scrollTo({top:0});
+  if(curErrs.length) announce(`בשלב הזה ${curErrs.length===1?'פרט אחד לתקן':curErrs.length+' פרטים לתקן'}`);
+}
+function syncOthers(){ const d = D(); const want = othersNeeded(d); while(d.others.length<want) d.others.push({name:'',idNumber:'',idFile:null}); }
+
+/* ---------- actions ---------- */
+function fillPoa(unsigned){
+  const d = emptyDraft();
+  d.prep.submitter='rep';
+  Object.assign(d.applicant,{firstName:'רונית',lastName:'שמש',phone:'050-6667788',email:'ronit.shemesh@example.com',idNumber:'111111118',idFile:file('tz_ronit_shemesh.pdf',430000)});
+  d.poaFile = file(unsigned ? 'poa_yosef_unsigned.pdf' : 'poa_yosef_signed.pdf', 310000);
+  Object.assign(d.tenant,{firstName:'יוסף',lastName:'מזרחי',phone:'052-9876543',email:'yosef.mizrahi@example.com',idNumber:'222222226',idFile:file('tz_yosef_with_sefach.pdf',540000)});
+  Object.assign(d.property,{street:'ביאליק',house:'20',apt:'4'});
+  d.moveInDate = iso(shiftDays(-2));
+  Object.assign(d.landlord,{firstName:'דוד',lastName:'כהן',phone:'054-3332211',email:'david.cohen@example.com',idNumber:'333333334',idFile:file('tz_david_cohen.pdf',690000)});
+  d.contractFile = file('lease_bialik20_pages_1_2_last.pdf',1600000);
+  Object.assign(d.water,{reading:'00457',readingDate:iso(shiftDays(-2)),photo:file('meter_bialik20.jpg',1300000)});
+  d.residentsTotal='3'; d.adults='1'; d.others=[];
+  const c = state.citizen; c.draft = d; c.checked = [0,1,2,3,4]; c.submitTried = false; c.fileErrors = {};
+  return d;
+}
+function fillDemo(){
+  const d = emptyDraft();
+  d.prep.submitter='self';
+  Object.assign(d.applicant,{firstName:'נועה',lastName:'ברק',phone:'052-4567890',email:'noa.barak@example.com',idNumber:'123456782',idFile:file('tz_noa_with_sefach.pdf',520000)});
+  Object.assign(d.property,{street:'הרא״ה',house:'45',apt:'7'});
+  d.moveInDate = iso(shiftDays(-1));
+  Object.assign(d.landlord,{firstName:'אהרון',lastName:'שמעוני',phone:'054-1112233',email:'aharon.s@example.com',idNumber:'234567899',idFile:file('tz_aharon.jpg',760000)});
+  d.contractFile = file('lease_pages_1_2_last.pdf',1800000);
+  Object.assign(d.water,{reading:'01234',readingDate:iso(shiftDays(-1)),photo:file('meter_movein.jpg',1400000)});
+  d.residentsTotal='2'; d.adults='2'; d.others=[{name:'עומר ברק',idNumber:'345678908',idFile:file('tz_omer.pdf',480000)}];
+  const c = state.citizen; c.draft = d; c.checked = [0,1,2,3,4]; c.submitTried = false; c.fileErrors = {};
+  return d;
+}
+const handlers = {
+  role(el){ state.role = el.dataset.v; render('#stepTitle'); window.scrollTo({top:0}); announce('תצוגה: '+el.textContent); },
+  goStep(el){ goStep(+el.dataset.v); },
+  jump(el,e){ e.preventDefault(); const st = el.dataset.step;
+    if(st!==undefined && +st!==state.citizen.step){ goStep(+st, el.dataset.v); return; }
+    const t = document.getElementById(el.dataset.v); if(t){ t.scrollIntoView({block:'center'}); t.focus(); } },
+  next(){ goStep(state.citizen.step+1); },
+  back(){ goStep(state.citizen.step-1); },
+  saveDraft(){ state.citizen.saved = true; render(); announce('הטיוטה נשמרה'); },
+  fillDemo(){ fillDemo(); goStep(state.citizen.step); announce('הפרטים של נועה מולאו. חסרים רק האישורים בשלב האחרון.'); },
+  fillPoa(){ fillPoa(false); goStep(state.citizen.step); announce('פרטי הגשה של מיופה כוח בשם יוסף מולאו. חסרים רק האישורים בשלב האחרון.'); },
+  scenarioPoaUnsigned(){ fillPoa(true); state.citizen.step = 1; render('#stepTitle'); announce('מולאה הגשה של מיופה כוח עם ייפוי כוח לא חתום. אחרי השליחה הנציגה תראה את הבעיה.'); },
+  scenarioNoPhoto(){ const d = fillDemo(); d.water.photo = null; state.citizen.step = 4; render('#errSummary'); announce('בשלב הזה פרט אחד לתקן'); },
+  resetDraft(){ const c = state.citizen; Object.assign(c, {draft:emptyDraft(), checked:[], submitTried:false, fileErrors:{}, step:0, saved:false}); render('#stepTitle'); window.scrollTo({top:0}); announce('הטופס אופס'); },
+  resetAll(){
+    if(!confirm('לאפס את כל המערכת?\n\nכל הבקשות, יומן הפעולות, התקלות וההגדרות יימחקו, וגם טפסים שנמצאים באמצע מילוי בכרטיסיות אחרות. אי אפשר לבטל את הפעולה.')) return;
+    state.requests = []; state.audit = []; state.incidents = []; state.settings = {repsCanViewId:true, slaDays:3}; state.seq = 1;
+    state.citizen = freshCitizen(); state.rep = {selected:null, filter:'all', fixErrors:{}};
+    try{ Object.keys(localStorage).filter(k=> k.startsWith(KC_PREFIX)).forEach(k=> localStorage.removeItem(k)); localStorage.setItem(KR, String(Date.now())); }catch(_){}
+    lastCit = '';
+    log('מנהל/ת מערכת','המערכת אופסה'); render('#stepTitle'); window.scrollTo({top:0}); announce('המערכת אופסה');
+  },
+  sampleFile(el){ setPath(D(), el.dataset.path, file(el.dataset.name)); delete state.citizen.fileErrors[el.dataset.focus]; render('#'+el.dataset.focus); announce('הקובץ צורף: '+el.dataset.name); },
+  removeFile(el){ setPath(D(), el.dataset.path, null); render('#'+el.dataset.focus); announce('הקובץ הוסר'); },
+  submit(){
+    const c = state.citizen, d = D();
+    c.submitTried = true; c.checked = [0,1,2,3,4];
+    const total = [0,1,2,3,4,5].reduce((n,s)=> n + validate(s,d).length, 0);
+    if(total){ render(validate(5,d).length ? '#errSummary' : '#crossSummary'); announce(`הבקשה לא נשלחה. ${total===1?'יש פרט אחד לתקן':'יש '+total+' פרטים לתקן'}`); return; }
+    const r = buildRequest(d); state.requests.unshift(r); c.submittedId = r.id;
+    log(r.submitterName.replace(' (מיופה כוח)',''),'בקשה הוגשה',r.id);
+    render('#stepTitle'); window.scrollTo({top:0}); announce('הבקשה נשלחה. מספר פנייה '+r.id);
+  },
+  newRequest(){ state.citizen = freshCitizen(); render('#stepTitle'); },
+  sampleFix(el){ const k = el.dataset.v; state.citizen.fixFiles[k] = file(k==='meter_photo'?'meter_retake_closeup.jpg':k==='poa'?'poa_signed_new.pdf':'replacement.pdf'); render(); announce('הקובץ צורף'); },
+  removeFix(el){ delete state.citizen.fixFiles[el.dataset.v]; render(); },
+  sendFix(el){
+    if(el.getAttribute('aria-disabled')==='true'){ announce('יש לצרף את כל הקבצים לפני השליחה'); return; }
+    const c = state.citizen, r = state.requests.find(x=> x.id===c.submittedId);
+    r.items.filter(i=> i.status==='fix').forEach(i=>{
+      i.file = c.fixFiles[i.key]; i.status='pending'; i.updatedByCitizen=true; i.reason='';
+      if(i.key==='meter_photo'){ r.reading = c.fixReading || r.reading; }
+      if(i.ai){ i.ai = aiCheck(i.ai.field, i.key==='meter_photo' ? r.reading : i.ai.entered, i.file, i.key==='poa'); }
+    });
+    r.status='resubmitted'; r.updatedAt=new Date().toISOString(); c.fixFiles={}; c.fixReading='';
+    log(r.tenantName,'הפונה שלחה השלמה',r.id); render('#stepTitle'); announce('ההשלמה נשלחה');
+  },
+  repFilter(el){ state.rep.filter = el.dataset.v; render(); },
+  repSelect(el){ state.rep.selected = el.dataset.v; state.rep.fixErrors = {}; render('#stepTitle'); },
+  assignMe(){ const r = cur(); const prev = r.assignee; r.assignee = ME; if(r.status==='submitted') r.status='in_review'; r.updatedAt=new Date().toISOString();
+    log(ME, prev?`הבקשה הועברה מ${prev} אליה`:'שייכה את הבקשה לעצמה', r.id); render('#stepTitle'); announce('הבקשה שויכה אלייך'); },
+  itemOk(el){ const i = item(el.dataset.v); i.status='ok'; i.reason=''; i.updatedByCitizen=false; delete state.rep.fixErrors[i.key]; log(ME,`סימנה כתקין: ${i.label}`,cur().id); render(); },
+  itemFix(el){ const i = item(el.dataset.v); i.status='fix'; render('#rs-'+i.key); },
+  findProp(){ const r = cur(); r.propertyNumber = '10-' + (3000+Math.floor(Math.random()*6000)) + '-' + String(Math.floor(Math.random()*40)+1).padStart(2,'0'); log(ME,`איתרה מספר נכס לפי כתובת: ${r.propertyNumber}`,r.id); render(); announce('מספר הנכס אותר: '+r.propertyNumber); },
+  sendInfo(el){
+    if(el.getAttribute('aria-disabled')==='true'){ announce('אפשר לשלוח בקשת השלמה רק לבקשה שבאחריותך, אחרי שסימנת לפחות פריט אחד כדורש השלמה'); return; }
+    const r = cur(); const fixes = r.items.filter(i=> i.status==='fix'); const fe = {};
+    fixes.forEach(i=>{ if(!i.reason.trim()) fe[i.key] = 'יש לכתוב לפונה מה בדיוק לתקן'; });
+    state.rep.fixErrors = fe; if(Object.keys(fe).length){ render('#rs-'+Object.keys(fe)[0]); return; }
+    r.status='needs_info'; r.everNeededInfo=true; r.updatedAt=new Date().toISOString();
+    log(ME,`נשלחה בקשת השלמה: ${fixes.map(i=>i.label).join(', ')}`,r.id); render('#stepTitle'); announce('בקשת ההשלמה נשלחה לפונה');
+  },
+  approve(el){
+    if(el.getAttribute('aria-disabled')==='true'){ announce('אפשר לאשר רק כשכל הפריטים סומנו כתקינים'); return; }
+    const r = cur(); r.status='approved'; r.updatedAt=new Date().toISOString(); log(ME,'אישרה את הבקשה. החשבון הועבר',r.id); render('#stepTitle'); announce('הבקשה אושרה');
+  },
+  viewDoc(el){
+    const r = cur(), i = item(el.dataset.v), dlg = $('#docDialog');
+    const blocked = i.kind==='id' && !state.settings.repsCanViewId;
+    log(ME, blocked?`ניסיון צפייה חסום: ${i.label}`:`צפתה במסמך: ${i.label}`, r.id);
+    $('#docBody').innerHTML = `<h2 id="docTitle">${esc(i.label)}</h2><p class="muted">${esc(i.file?i.file.name:'')}</p>
+      <div class="docfake">${blocked?'<p><b>אין הרשאה לצפות בצילומי תעודות זהות.</b></p><p class="muted">אפשר לפנות למנהל המערכת. הניסיון נרשם ביומן.</p>':`<p class="blur" aria-hidden="true">████ ██████ ███ ████</p><p>תצוגה מדומה. בדמו לא נשמר תוכן הקובץ.</p>${i.kind==='id'?'<p class="muted">הצפייה נרשמה ביומן הפעולות.</p>':''}`}</div>
+      <button type="button" class="btn" data-action="closeDlg">סגירה</button>`;
+    state.lastDoc = i.key; dlg.showModal(); render(); $('#docBody .btn').focus();
+  },
+  toggleHint(el){
+    const pop = document.getElementById(el.dataset.v); if(!pop) return;
+    const open = !pop.classList.contains('open');
+    closeHints(); if(open){ pop.classList.add('open'); el.setAttribute('aria-expanded','true'); el.closest('.hint').classList.remove('dismissed'); }
+  },
+  closeDlg(){ $('#docDialog').close(); },
+  noop(el,e){ e.preventDefault(); announce('בדמו אין מסמך תנאי שימוש'); }
+};
+const cur = () => state.requests.find(x=> x.id===state.rep.selected);
+const item = k => cur().items.find(i=> i.key===k);
+
+
+function closeHints(except){ document.querySelectorAll('.hint-pop.open').forEach(p=>{ if(p!==except){ p.classList.remove('open'); const b = document.querySelector(`[aria-controls="${p.id}"]`); if(b) b.setAttribute('aria-expanded','false'); } }); }
+document.addEventListener('keydown', e=>{
+  if(e.key!=='Escape') return;
+  const h = document.querySelector('.hint:hover, .hint:focus-within') || (document.querySelector('.hint-pop.open')||{closest:()=>null}).closest('.hint');
+  if(h){ h.classList.add('dismissed'); closeHints(); }
+});
+document.addEventListener('mouseout', e=>{ const h = e.target.closest && e.target.closest('.hint.dismissed'); if(h && !h.contains(e.relatedTarget)) h.classList.remove('dismissed'); });
+document.addEventListener('focusout', e=>{ const h = e.target.closest && e.target.closest('.hint.dismissed'); if(h && !h.contains(e.relatedTarget)) h.classList.remove('dismissed'); });
+document.addEventListener('click', e=>{ if(!e.target.closest('.hint')) closeHints(); }, true);
+document.addEventListener('click', e=>{
+  const el = e.target.closest('[data-action]'); if(!el) return;
+  const fn = handlers[el.dataset.action]; if(fn) fn(el,e);
+});
+document.addEventListener('input', e=>{
+  const el = e.target;
+  if(el.dataset.path && el.type!=='checkbox' && el.type!=='radio' && el.tagName!=='SELECT'){ setPath(D(), el.dataset.path, el.value);
+    if(el.getAttribute('aria-invalid')==='true'){ el.removeAttribute('aria-invalid'); const m = document.getElementById(el.id+'-e'); if(m) m.remove();
+      const db = (el.getAttribute('aria-describedby')||'').replace(el.id+'-e','').trim(); db ? el.setAttribute('aria-describedby',db) : el.removeAttribute('aria-describedby'); } }
+  if(el.dataset.reason!==undefined){ item(el.dataset.reason).reason = el.value; }
+  if(el.dataset.fixreading!==undefined){ state.citizen.fixReading = el.value.replace(/\D/g,''); }
+});
+document.addEventListener('change', e=>{
+  const el = e.target;
+  if(el.dataset.path && el.type!=='checkbox' && el.type!=='radio' && el.tagName!=='SELECT' && state.role==='citizen' && !state.citizen.submittedId){ patchField(el); updatePartials(); }
+  if(el.dataset.path && (el.type==='checkbox' || el.type==='radio' || el.tagName==='SELECT')){
+    setPath(D(), el.dataset.path, el.type==='checkbox' ? el.checked : el.value);
+    if(el.dataset.path==='residentsTotal' && +D().adults > +D().residentsTotal){
+      D().adults = D().residentsTotal; announce(`מספר הבגירים עודכן ל־${D().adults}, כי הוא לא יכול לעלות על מספר הדיירים בדירה`);
+    }
+    if(['adults','landlordLives','residentsTotal'].includes(el.dataset.path)) syncOthers();
+    if(el.dataset.path==='prep.submitter'){ const c = state.citizen; c.checked = []; c.submitTried = false; c.fileErrors = {}; announce('הסימונים של פרטים לתיקון נוקו'); }
+    render('#'+el.id);
+  }
+  if(el.dataset.file || el.dataset.fix){
+    const f = el.files && el.files[0]; if(!f) return;
+    const okType = /\.(pdf|png|jpe?g)$/i.test(f.name);
+    const step = STEPS[state.citizen.step] ? STEPS[state.citizen.step].t : 'השלמה';
+    if(!okType || f.size > 10*1048576){
+      const msg = !okType ? `הקובץ ${f.name} לא נתמך. אפשר לצרף PDF, JPG או PNG.` : `הקובץ ${f.name} גדול מ־10MB. אפשר לצלם שוב ברזולוציה נמוכה יותר.`;
+      state.incidents.unshift({at:new Date().toISOString(), text:`העלאה נדחתה: ${!okType?'סוג קובץ לא נתמך':'קובץ גדול מדי'} (${f.name.split('.').pop()})`, step});
+      if(el.dataset.file){ state.citizen.fileErrors[el.id] = {msg, step:state.citizen.step}; render('#'+el.id); }
+      announce(msg); return;
+    }
+    const meta = {name:f.name, size:f.size, type:f.type};
+    if(el.dataset.file){ setPath(D(), el.dataset.file, meta); delete state.citizen.fileErrors[el.id]; render('#'+el.id); }
+    else { state.citizen.fixFiles[el.dataset.fix] = meta; render(); }
+    announce('הקובץ צורף: '+f.name);
+  }
+  if(el.dataset.assign){ const r = state.requests.find(x=> x.id===el.dataset.assign); r.assignee = el.value || null; if(r.assignee && r.status==='submitted') r.status='in_review'; r.updatedAt=new Date().toISOString();
+    log('מנהל/ת מערכת', r.assignee?`הבקשה שויכה ל${r.assignee}`:'בוטל השיוך', r.id); render(); announce('השיוך עודכן'); }
+  if(el.dataset.setting){ const k = el.dataset.setting; state.settings[k] = el.type==='checkbox' ? el.checked : Math.max(1, +el.value||3);
+    log('מנהל/ת מערכת', k==='repsCanViewId' ? `צפייה בתעודות זהות לנציגים: ${el.checked?'מותרת':'חסומה'}` : `יעד זמן הטיפול שונה ל־${state.settings.slaDays} ימים`); render('#'+(el.id||'')); }
+});
+$('#docDialog').addEventListener('close', ()=>{ const b = document.querySelector(`[data-action="viewDoc"][data-v="${state.lastDoc}"]`); if(b) b.focus(); });
+$('#docDialog').addEventListener('click', e=>{ if(e.target.id==='docDialog') e.target.close(); });
+
+/* ---------- shared browser storage (no server, no database) ---------- */
+/* Each browser tab keeps its OWN citizen form (so a new tab = a new request),
+   while requests, audit log and settings are shared by all tabs. */
+const KW = 'noaDemo.world.v2', KC_PREFIX = 'noaDemo.citizen.v3.', KR = 'noaDemo.resetAt';
+let tabId = null;
+try{ tabId = sessionStorage.getItem('noaDemo.tabId'); if(!tabId){ tabId = Date.now().toString(36) + Math.random().toString(36).slice(2,8); sessionStorage.setItem('noaDemo.tabId', tabId); } }catch(_){ tabId = 'solo'; }
+const KC = KC_PREFIX + tabId;
+try{ localStorage.removeItem('noaDemo.citizen.v2'); }catch(_){}
+try{ localStorage.removeItem('noaDemo.world.v1'); localStorage.removeItem('noaDemo.citizen.v1'); }catch(_){}
+let lastWorld = '', lastCit = '';
+const worldJSON = () => JSON.stringify({requests:state.requests, audit:state.audit, incidents:state.incidents, settings:state.settings, seq:state.seq});
+const citJSON = () => { const c = state.citizen; return JSON.stringify({draft:c.draft, step:c.step, checked:c.checked, submitTried:c.submitTried, submittedId:c.submittedId, fixFiles:c.fixFiles, fixReading:c.fixReading}); };
+function loadWorld(){
+  try{ const raw = localStorage.getItem(KW); if(!raw) return null; if(raw===lastWorld) return 'same';
+    const w = JSON.parse(raw); Object.assign(state, {requests:w.requests, audit:w.audit, incidents:w.incidents, settings:w.settings, seq:w.seq}); lastWorld = raw; return 'changed';
+  }catch(_){ return null; }
+}
+function adoptCitizen(raw){ try{ Object.assign(state.citizen, freshCitizen(), JSON.parse(raw)); lastCit = raw; }catch(_){} }
+function checkCitizenRef(){ const c = state.citizen; if(c.submittedId && !state.requests.find(r=> r.id===c.submittedId)){ state.citizen = freshCitizen(); } }
+function persist(){
+  try{
+    const w = worldJSON(); if(w!==lastWorld){ localStorage.setItem(KW, w); lastWorld = w; }
+    const c = citJSON(); if(c!==lastCit){ localStorage.setItem(KC, c); lastCit = c; }
+  }catch(_){}
+}
+['click','input','change'].forEach(t=> document.addEventListener(t, ()=> loadWorld(), true));
+['click','input','change'].forEach(t=> document.addEventListener(t, ()=> setTimeout(persist, 0)));
+window.addEventListener('storage', e=>{
+  if(e.key===KW && e.newValue && e.newValue!==lastWorld){
+    loadWorld(); checkCitizenRef();
+    const wizardOpen = state.role==='citizen' && !state.citizen.submittedId;
+    if(!wizardOpen) render();
+  }
+  if(e.key===KR && e.newValue){
+    state.citizen = freshCitizen(); lastCit = ''; state.rep = {selected:null, filter:'all', fixErrors:{}};
+    render('#stepTitle');
+  }
+});
+function refreshIfStale(){ if(loadWorld()==='changed'){ checkCitizenRef(); if(!(state.role==='citizen' && !state.citizen.submittedId)) render(); } }
+window.addEventListener('focus', refreshIfStale);
+document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) refreshIfStale(); });
+window.addEventListener('hashchange', ()=>{ const h = location.hash.slice(1); if(['citizen','rep','admin'].includes(h) && h!==state.role){ state.role = h; render('#stepTitle'); } });
+
+const h0 = location.hash.slice(1); if(['citizen','rep','admin'].includes(h0)) state.role = h0;
+loadWorld();
+try{ const rc = localStorage.getItem(KC); if(rc) adoptCitizen(rc); }catch(_){}
+checkCitizenRef(); persist(); render();
+})();
+</script>
+</body>
+</html>
